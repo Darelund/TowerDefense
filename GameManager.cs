@@ -25,7 +25,7 @@ namespace TowerDefense
       //  public static List<GameObject> GetGameObjects => GameObjects;
       //  private static List<FlashEffect> _flashEffects = new List<FlashEffect>();
 
-        public static GameState CurrentGameState { get; private set; } = GameState.MainMenu;
+        public static GameState CurrentGameState { get; private set; } = GameState.Playing;
 
         public static GameWindow Window;
         public static ContentManager Content;
@@ -103,7 +103,7 @@ namespace TowerDefense
         }
         public static void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, SamplerState.PointWrap);
+           // spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, SamplerState.PointWrap);
             switch (CurrentGameState)
             {
                 case GameState.MainMenu:
@@ -138,7 +138,7 @@ namespace TowerDefense
                     break;
             }
            // _sceneSwitcher.Draw(spriteBatch);
-            spriteBatch.End();
+          //  spriteBatch.End();
         }
         //public static void AddGameObject(GameObject gameObject)
         //{
