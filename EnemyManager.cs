@@ -11,22 +11,22 @@ namespace TowerDefense
 {
     public class EnemyManager
     {
-        public List<Enemy> cars;
-        private GraphicsDevice _device;
+        public static List<Enemy> cars;
+        private static GraphicsDevice _device;
 
 
         //Spawn Logic
-        private int _timeSinceLastCar = 0;
-        private int _millisecondsBetweenCreation = 400;
-        private int _nbrOfCarsInCurrentWave = 10;
-        private int _nbrOfCarsSpawned = 0;
+        private static int _timeSinceLastCar = 0;
+        private static int _millisecondsBetweenCreation = 400;
+        private static int _nbrOfCarsInCurrentWave = 10;
+        private static int _nbrOfCarsSpawned = 0;
 
-        public EnemyManager(GraphicsDevice graphicsDevice)
+        public static void SetUp(GraphicsDevice graphicsDevice)
         {
             cars = new List<Enemy>();
             _device = graphicsDevice;
         }
-        public void LoadWave(GameTime gameTime)
+        public static void LoadWave(GameTime gameTime)
         {
             _timeSinceLastCar += gameTime.ElapsedGameTime.Milliseconds;
             if(_nbrOfCarsInCurrentWave > _nbrOfCarsSpawned && _timeSinceLastCar > _millisecondsBetweenCreation)
@@ -39,7 +39,7 @@ namespace TowerDefense
                 _nbrOfCarsSpawned++;
             }
         }
-        public void Update(GameTime gameTime)
+        public static void Update(GameTime gameTime)
         {
             //Should add logic to know if its time to spawn
             LoadWave(gameTime);
@@ -48,7 +48,7 @@ namespace TowerDefense
                 car.Update(gameTime);
             }
         }
-        public void Draw(SpriteBatch spriteBatch)
+        public static void Draw(SpriteBatch spriteBatch)
         {
             foreach(Enemy car in cars)
             {

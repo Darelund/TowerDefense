@@ -18,11 +18,9 @@ namespace TowerDefense
         //convert string to int
         public static int ParseInt(string str)
         {
-            Debug.WriteLine("parse_int " + str);
             if (!int.TryParse(str, out int x))
                 throw new Exception("Couldn't parse '" + str + "' to int");
-            else
-            Debug.WriteLine("parse_int " + x.ToString());
+          
             return x;
         }
 
@@ -43,9 +41,8 @@ namespace TowerDefense
         // E.g. "1, 5" -> Vector2(1, 5)
         public static Vector2 ParseVector2(string line)
         {
-            Debug.WriteLine("Got " + line);
             int[] ints = ParseInts(line);
-            Debug.WriteLine("Parsed " + ints[0].ToString() + ", " + ints[1].ToString());
+
             return new Vector2(ints[0], ints[1]);
         }
     }

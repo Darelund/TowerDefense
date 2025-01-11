@@ -18,9 +18,6 @@ namespace TowerDefense
         private string _effects = "";
 
 
-        private LevelManager _levelManager;
-        private EnemyManager _enemyManager;
-        private TowerManager _towereManager;
 
         public Game1()
         {
@@ -35,7 +32,7 @@ namespace TowerDefense
             _graphics.PreferredBackBufferHeight = 900;
 
             _graphics.ApplyChanges();
-
+            GameManager.SetUp(Window, Content, GraphicsDevice);
             base.Initialize();
         }
 
@@ -44,13 +41,7 @@ namespace TowerDefense
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             ResourceManager.LoadResources(Content, _textures, _soundEffects, _music, _spriteFonts, _effects);
 
-            _levelManager = new LevelManager();
-            _levelManager.AddLevel(GraphicsDevice);
-
-            _enemyManager = new EnemyManager(GraphicsDevice);
-
-            _towereManager = new TowerManager();
-            _towereManager.AddTower(new Vector2(1000, 300));
+            GameManager.ContentLoad();
         }
 
     
@@ -60,11 +51,12 @@ namespace TowerDefense
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            _levelManager.Update(gameTime);
-            _enemyManager.Update(gameTime);
-            _towereManager.Update(gameTime);
+            GameManager.Update(gameTime);
 
-            base.Update(gameTime);
+
+         
+
+                base.Update(gameTime);
         }
       
         protected override void Draw(GameTime gameTime)
@@ -72,10 +64,7 @@ namespace TowerDefense
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
 
-            //Draw road
-            _levelManager.Draw(_spriteBatch);
-            _enemyManager.Draw(_spriteBatch);
-            _towereManager.Draw(_spriteBatch);
+            GameManager.Draw(_spriteBatch);
 
             base.Draw(gameTime);
         }

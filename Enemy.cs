@@ -31,7 +31,7 @@ namespace TowerDefense
             _car = new CatmullRomPath(_device, tensionRoad);
             _car.Clear();//Vi vill inte ha default punkter, vi vill göra en egen väg
 
-            LoadPath.LoadPathFromFile(_car, "carpath1.txt");
+            LoadPath.LoadPathFromFile(_car, LevelManager.CurrentLevel.LevelMap);
 
             //Grejer för hur fett bil ska vara och vad den ska innehålla
             _car.DrawFillSetup(_device, 2, 1, 256);

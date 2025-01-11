@@ -10,12 +10,13 @@ namespace TowerDefense
     public class LevelManager
     {
 
-        private List<Level> _levels;
+        private static List<Level> _levels = new List<Level>();
 
-        private int _currentLevel = 0;
-        public int CurrentLevel
+        private static int _currentLevelIndex = 0;
+        public static Level CurrentLevel => _levels[CurrentLevelIndex];
+        public static int CurrentLevelIndex
         {
-            get => _currentLevel;
+            get => _currentLevelIndex;
             set
             {
                 if (value <= _levels.Count)
@@ -28,32 +29,27 @@ namespace TowerDefense
                 }
             }
         }
-        public LevelManager() 
-        { 
-            _levels = new List<Level>();
-        }
+       
 
-        public void AddLevel(GraphicsDevice gd)
+        public static void AddLevel(GraphicsDevice gd, string mapLevel)
         {
             Texture2D roadTex = ResourceManager.GetTexture("road");
-            _levels.Add(new Level(gd, roadTex));
+            _levels.Add(new Level(gd, roadTex, mapLevel));
         }
-        public void RemoveLevel(Level gd)
+        public static void RemoveLevel(Level gd)
         {
             _levels.Remove(gd);
         }
 
-        public void Update(GameTime gameTime)
+        public static void Update(GameTime gameTime)
         {
-            _levels[_currentLevel].Update(gameTime);
+            _levels[_currentLevelIndex].Update(gameTime);
            
         }
 
-        public void Draw(SpriteBatch sb)
+        public static void Draw(SpriteBatch sb)
         {
-            _levels[_currentLevel].Draw(sb);
+            _levels[_currentLevelIndex].Draw(sb);
         }
-
-       
     }
 }

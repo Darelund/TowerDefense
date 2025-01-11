@@ -10,27 +10,24 @@ namespace TowerDefense
 {
     public class TowerManager
     {
-        private List<Tower> towerList;
-        //LaserManager laserManager;
-        public TowerManager() { 
-            towerList= new List<Tower>();
-            //laserManager= new LaserManager();
-        }
+        private static List<Tower> towerList = new List<Tower>();
+       
 
-        public List<Tower> GetAllTowers()
+        public static List<Tower> GetAllTowers()
         {
             return towerList;
         }
 
-        public void AddTower(Vector2 pos)
+        public static void AddTower(Vector2 pos)
         {
             Projectile prj = new Projectile(ResourceManager.GetTexture("Bullet_Cannon"), pos);
-            Tower t = new Tower(ResourceManager.GetTexture("Tower"), pos, 0.5f);
+            float towerSize = 0.2f;
+            Tower t = new Tower(ResourceManager.GetTexture("Tower"), pos, towerSize);
             t.AddLaser(prj);
             towerList.Add(t);  
         }
 
-        public void Update(GameTime gameTime)
+        public static void Update(GameTime gameTime)
         {
             foreach (Tower t in towerList)
             {
@@ -38,7 +35,7 @@ namespace TowerDefense
             }
         }
 
-       public void Draw(SpriteBatch spriteBatch)
+       public static void Draw(SpriteBatch spriteBatch)
        {
             spriteBatch.Begin();
             foreach (Tower t in towerList)

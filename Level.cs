@@ -24,23 +24,16 @@ namespace TowerDefense
         public static int LevelNbr;
 
         private Texture2D _texture;
-
-        public Level(GraphicsDevice device, Texture2D tex)
+        private string _levelMap;
+        public string LevelMap => _levelMap;
+        public Level(GraphicsDevice device, Texture2D tex, string map)
         {
             _texture = tex;
             _device = device;
             LevelNbr++;
+            _levelMap = map;
 
-            float tensionRoad = 0.5f;
-
-            _road = new CatmullRomPath(_device, tensionRoad);
-            _road.Clear();//Vi vill inte ha default punkter, vi vill göra en egen väg
-
-            //Skapa path
-            LoadPath.LoadPathFromFile(_road, "carpath1.txt");
-
-            //Grejer för hur fett road ska vara och vad den ska innehålla
-            _road.DrawFillSetup(_device, 30, 5, 26);
+            LoadMap();
         }
         public void Update(GameTime gameTime)
         {
@@ -54,6 +47,19 @@ namespace TowerDefense
         public void Draw(SpriteBatch spriteBatch)
         {
             _road.DrawFill(_device, _texture);
+        }
+        public void LoadMap()
+        {
+            float tensionRoad = 0.5f;//Default tension för nu
+
+            _road = new CatmullRomPath(_device, tensionRoad);
+            _road.Clear();//Vi vill inte ha default punkter, vi vill göra en egen väg
+
+            //Skapa path
+            LoadPath.LoadPathFromFile(_road, _levelMap);
+
+            //Grejer för hur fett road ska vara och vad den ska innehålla
+            _road.DrawFillSetup(_device, 30, 5, 26);
         }
     }
 }
