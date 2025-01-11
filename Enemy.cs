@@ -9,10 +9,9 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace TowerDefense
 {
-    public class Car
+    public class Enemy : GameObject
     {
         private CatmullRomPath _car; //Draw car
-        public Rectangle HitBox;
 
         private float _currentCurvePos = 0;
         private float _currentCurveSpeed = 0.2f;
@@ -23,7 +22,7 @@ namespace TowerDefense
 
         private GraphicsDevice _device;
 
-        public Car(GraphicsDevice device)
+        public Enemy(GraphicsDevice device, Texture2D tex, Vector2 pos): base(tex, pos)
         {
             _device = device;
 
@@ -38,25 +37,23 @@ namespace TowerDefense
             _car.DrawFillSetup(_device, 2, 1, 256);
 
 
-            HitBox = new Rectangle(0, 0, 50, 50);
         }
-        public void Update(GameTime gameTime)
+        public override void Update(GameTime gameTime)
         {
             _currentCurvePos += _currentCurveSpeed * (float)gameTime.ElapsedGameTime.TotalSeconds;
             if (_currentCurvePos < 1 && _currentCurvePos > 0)
             {
                 //Som den där GetPos eller vad den hette
                Vector2 currentPos = _car.EvaluateAt(_currentCurvePos);
-                HitBox.X = (int)currentPos.X;
-                HitBox.Y = (int)currentPos.Y;
+                position = currentPos;
             }
         }
-        public void Draw(SpriteBatch spriteBatch)
+        public override void Draw(SpriteBatch spriteBatch)
         {
             if (_currentCurvePos < 1 && _currentCurvePos > 0)
             {
                 if (!IsHit)
-                _car.DrawMovingObject(_currentCurvePos, spriteBatch, AssetManager.carTex);
+                _car.DrawMovingObject(_currentCurvePos, spriteBatch, texture);
             }
         }
     }

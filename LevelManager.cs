@@ -35,11 +35,12 @@ namespace TowerDefense
 
         public void AddLevel(GraphicsDevice gd)
         {
-            _levels.Add(new Level(gd));
+            Texture2D roadTex = ResourceManager.GetTexture("road");
+            _levels.Add(new Level(gd, roadTex));
         }
-        public void RemoveLevel(GraphicsDevice gd)
+        public void RemoveLevel(Level gd)
         {
-            _levels.Remove(new Level(gd));
+            _levels.Remove(gd);
         }
 
         public void Update(GameTime gameTime)

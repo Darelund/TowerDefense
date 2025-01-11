@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace TowerDefense
 {
-    public class LaserBeam
+    public class Projectile : GameObject
     {
         private float range = 50;
         private float speed = 2;
@@ -17,24 +17,21 @@ namespace TowerDefense
         private Vector2 startPos;
         public Rectangle hitBox;
 
-        public LaserBeam(Vector2 startPos) {
+        public Projectile(Texture2D tex, Vector2 startPos): base(tex, startPos) {
             pos = startPos;
-            this.startPos= startPos;
-            hitBox=new Rectangle((int)pos.X, (int)pos.Y, AssetManager.yellowTex.Height, AssetManager.yellowTex.Width);
+            this.startPos = startPos;
+            hitBox = new Rectangle((int)pos.X, (int)pos.Y, texture.Height, texture.Width);
         }
 
-        public void Update(GameTime gameTime)
+        public override void Update(GameTime gameTime)
         {
             pos.X -= speed;
             hitBox.X=(int)pos.X;
         }
 
-        public void Draw(SpriteBatch spriteBatch)
+        public override void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(AssetManager.yellowTex, pos, Color.White);
+            spriteBatch.Draw(texture, pos, Color.White);
         }
-
-
-
     }
 }

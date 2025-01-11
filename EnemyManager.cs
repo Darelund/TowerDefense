@@ -9,9 +9,9 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace TowerDefense
 {
-    public class CarManager
+    public class EnemyManager
     {
-        public List<Car> cars;
+        public List<Enemy> cars;
         private GraphicsDevice _device;
 
 
@@ -21,9 +21,9 @@ namespace TowerDefense
         private int _nbrOfCarsInCurrentWave = 10;
         private int _nbrOfCarsSpawned = 0;
 
-        public CarManager(GraphicsDevice graphicsDevice)
+        public EnemyManager(GraphicsDevice graphicsDevice)
         {
-            cars = new List<Car>();
+            cars = new List<Enemy>();
             _device = graphicsDevice;
         }
         public void LoadWave(GameTime gameTime)
@@ -32,7 +32,8 @@ namespace TowerDefense
             if(_nbrOfCarsInCurrentWave > _nbrOfCarsSpawned && _timeSinceLastCar > _millisecondsBetweenCreation)
             {
                 _timeSinceLastCar -= _millisecondsBetweenCreation; //Reset
-                Car car = new Car(_device);
+                Vector2 defaultPos = new Vector2(0, 0);
+                Enemy car = new Enemy(_device, ResourceManager.GetTexture("car"), defaultPos);
                 cars.Add(car);
 
                 _nbrOfCarsSpawned++;
@@ -42,14 +43,14 @@ namespace TowerDefense
         {
             //Should add logic to know if its time to spawn
             LoadWave(gameTime);
-            foreach (Car car in cars)
+            foreach (Enemy car in cars)
             {
                 car.Update(gameTime);
             }
         }
         public void Draw(SpriteBatch spriteBatch)
         {
-            foreach(Car car in cars)
+            foreach(Enemy car in cars)
             {
                 if(!car.IsHit)
                 car.Draw(spriteBatch);

@@ -11,11 +11,16 @@ namespace TowerDefense
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
+        private string _textures = "Bullet_Cannon,Bullet_MG,Cannon,Cannon2,Cannon3,car,transparentSquareBackground,MG,MG2,MG3,Missile,Missile_Launcher,Missile_Launcher2,Missile_Launcher3,police,road,Tower,yellow";
+        private string _soundEffects = "";
+        private string _music = "";
+        private string _spriteFonts = "";
+        private string _effects = "";
 
 
         private LevelManager _levelManager;
-        private CarManager _carManager;
-        private PoliceManager _policeManager;
+        private EnemyManager _enemyManager;
+        private TowerManager _towereManager;
 
         public Game1()
         {
@@ -37,15 +42,15 @@ namespace TowerDefense
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-            AssetManager.LoadTextures(Content, GraphicsDevice);
+            ResourceManager.LoadResources(Content, _textures, _soundEffects, _music, _spriteFonts, _effects);
 
             _levelManager = new LevelManager();
             _levelManager.AddLevel(GraphicsDevice);
 
-            _carManager = new CarManager(GraphicsDevice);
+            _enemyManager = new EnemyManager(GraphicsDevice);
 
-            _policeManager = new PoliceManager();
-            _policeManager.AddPolice(new Vector2(1000, 300));
+            _towereManager = new TowerManager();
+            _towereManager.AddTower(new Vector2(1000, 300));
         }
 
     
@@ -56,8 +61,8 @@ namespace TowerDefense
                 Exit();
 
             _levelManager.Update(gameTime);
-            _carManager.Update(gameTime);
-            _policeManager.Update(gameTime);
+            _enemyManager.Update(gameTime);
+            _towereManager.Update(gameTime);
 
             base.Update(gameTime);
         }
@@ -69,9 +74,8 @@ namespace TowerDefense
 
             //Draw road
             _levelManager.Draw(_spriteBatch);
-            _carManager.Draw(_spriteBatch);
-            _policeManager.Draw(_spriteBatch);
-           
+            _enemyManager.Draw(_spriteBatch);
+            _towereManager.Draw(_spriteBatch);
 
             base.Draw(gameTime);
         }

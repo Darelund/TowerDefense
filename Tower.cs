@@ -9,23 +9,22 @@ using System.Threading.Tasks;
 
 namespace TowerDefense
 {
-    public class Police
+    public class Tower : GameObject
     {
-        private Vector2 pos;
         private int delay = 400;
         private int timeSinceLast = 0;
 
-        private LaserBeam _laser = null;
-        public Police(Vector2 pos) { 
-            this.pos = pos;
+        private Projectile _laser = null;
+        public Tower(Texture2D tex, Vector2 pos, float scale) : base(tex, pos, scale)
+        { 
         }
 
-        public void AddLaser(LaserBeam laser)
+        public void AddLaser(Projectile laser)
         {
             _laser = laser;
         }
 
-        public void Update(GameTime gameTime)
+        public override void Update(GameTime gameTime)
         {
             //timeSinceLast += gameTime.ElapsedGameTime.Milliseconds;
             //if (timeSinceLast > delay)
@@ -34,9 +33,10 @@ namespace TowerDefense
             //}
             
         }
-        public void Draw(SpriteBatch spriteBatch)
+        public override void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(AssetManager.policeTex, pos, Color.White);
+            spriteBatch.Draw(texture, position, null, Color.White, _rotation, _origin, _scale, _spriteEffect, _layerDepth);
+
             _laser.Draw(spriteBatch);
         }
     }

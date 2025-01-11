@@ -20,11 +20,14 @@ namespace TowerDefense
 
         private GraphicsDevice _device;
 
-        //OM vi har många bannor
+        //OM jag lägger till fler banor
         public static int LevelNbr;
 
-        public Level(GraphicsDevice device)
+        private Texture2D _texture;
+
+        public Level(GraphicsDevice device, Texture2D tex)
         {
+            _texture = tex;
             _device = device;
             LevelNbr++;
 
@@ -50,7 +53,7 @@ namespace TowerDefense
         }
         public void Draw(SpriteBatch spriteBatch)
         {
-            _road.DrawFill(_device, AssetManager.roadTex);
+            _road.DrawFill(_device, _texture);
         }
     }
 }
