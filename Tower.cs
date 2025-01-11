@@ -29,6 +29,7 @@ namespace TowerDefense
             //timeSinceLast += gameTime.ElapsedGameTime.Milliseconds;
             //if (timeSinceLast > delay)
             //{
+                 if(_laser != null)
                 _laser.Update(gameTime);
             //}
             
@@ -37,7 +38,8 @@ namespace TowerDefense
         {
             spriteBatch.Draw(texture, position, null, Color.White, _rotation, _origin, _scale, _spriteEffect, _layerDepth);
 
-            _laser.Draw(spriteBatch);
+            if (_laser != null)
+                _laser.Draw(spriteBatch);
         }
     }
 }

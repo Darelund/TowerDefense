@@ -17,15 +17,20 @@ namespace TowerDefense
 
         protected float _rotation;
         protected Vector2 _origin;
-        protected float _scale;
+        public float _scale;
         protected SpriteEffects _spriteEffect;
         protected float _layerDepth;
 
+        public Texture2D GetTexture => texture;
+        public Vector2 SetPosition
+        {
+            set => position = value;
+        }
         public Rectangle Hitbox
         {
             //get => new Rectangle((int)position.X, (int)position.Y, texture.Width, texture.Height);
             // get => new Rectangle((int)position.X - (int)Origin.X * (int)Size, (int)position.Y - (int)Origin.Y * (int)Size, rec.Width * (int)Size, rec.Height * (int)Size);
-            get => new Rectangle((int)position.X, (int)position.Y, texture.Width * (int)_scale, texture.Height * (int)_scale);
+            get => new Rectangle((int)position.X, (int)position.Y, (int)(texture.Width * _scale), (int)(texture.Height * _scale));
         }
 
 

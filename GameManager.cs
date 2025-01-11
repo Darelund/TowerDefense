@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Xna.Framework.Input;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace TowerDefense
 {
@@ -30,7 +32,8 @@ namespace TowerDefense
         public static GameWindow Window;
         public static ContentManager Content;
         public static GraphicsDevice Device;
-       // private static SceneSwitcher _sceneSwitcher;
+        // private static SceneSwitcher _sceneSwitcher;
+        private static Tower _selectedObject;
 
         public static string Name { get; set; }
 
@@ -44,7 +47,7 @@ namespace TowerDefense
             Device = device;
            // _sceneSwitcher = new SceneSwitcher(Window, Device);
         }
-        public static void ContentLoad()
+        public static void ContentLoad(SpriteBatch spriteBatch)
         {
             //  UIManager.LoadContent();
             // AudioManager.LoadContent();
@@ -55,6 +58,11 @@ namespace TowerDefense
             LevelManager.AddLevel(Device, "map1.txt");
             EnemyManager.SetUp(Device);
             TowerManager.AddTower(new Vector2(1000, 300));
+
+            GameObjectPlacer.SetUp(Device, Window, spriteBatch);
+            GameObjectPlacer.DrawOnRenderTarget();
+
+            _selectedObject = new Tower(ResourceManager.GetTexture("Tower"), new Vector2(-ResourceManager.GetTexture("Tower").Width / 2, -ResourceManager.GetTexture("Tower").Height / 2) + Mouse.GetState().Position.ToVector2(), 0.2f);
         }
 
 
@@ -76,6 +84,7 @@ namespace TowerDefense
                     LevelManager.Update(gameTime);
                     EnemyManager.Update(gameTime);
                     TowerManager.Update(gameTime);
+                    GameObjectPlacer.Update(gameTime, _selectedObject);
 
                     if (InputManager.LeftClick())
                         LevelEditor.OpenLevelMapFile(LevelManager.CurrentLevel);
@@ -122,6 +131,10 @@ namespace TowerDefense
                     LevelManager.Draw(spriteBatch);
                     EnemyManager.Draw(spriteBatch);
                     TowerManager.Draw(spriteBatch);
+                    spriteBatch.Begin();
+                    GameObjectPlacer.Draw(_selectedObject);
+                    spriteBatch.End();
+
                     break;
                 case GameState.Pause:
                     break;

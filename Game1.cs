@@ -41,7 +41,7 @@ namespace TowerDefense
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             ResourceManager.LoadResources(Content, _textures, _soundEffects, _music, _spriteFonts, _effects);
 
-            GameManager.ContentLoad();
+            GameManager.ContentLoad(_spriteBatch);
         }
 
     
