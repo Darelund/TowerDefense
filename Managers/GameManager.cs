@@ -33,7 +33,10 @@ namespace TowerDefense
         public static ContentManager Content;
         public static GraphicsDevice Device;
         // private static SceneSwitcher _sceneSwitcher;
+
         private static Tower _selectedObject;
+        private static List<GameObjectSelector> gameObjectSelectors;
+
 
         public static string Name { get; set; }
 
@@ -62,7 +65,13 @@ namespace TowerDefense
             GameObjectPlacer.SetUp(Device, Window, spriteBatch);
             GameObjectPlacer.DrawOnRenderTarget();
 
-            _selectedObject = new Tower(ResourceManager.GetTexture("Tower"), new Vector2(-ResourceManager.GetTexture("Tower").Width / 2, -ResourceManager.GetTexture("Tower").Height / 2) + Mouse.GetState().Position.ToVector2(), 0.2f);
+            _selectedObject = new Tower(ResourceManager.GetTexture("Cannon"), new Vector2(-ResourceManager.GetTexture("Cannon").Width / 2, -ResourceManager.GetTexture("Cannon").Height / 2) + Mouse.GetState().Position.ToVector2(), 0.2f);
+
+            gameObjectSelectors = new List<GameObjectSelector>()
+            {
+                new GameObjectSelector(ResourceManager.GetTexture("Cannon"), new Tower(ResourceManager.GetTexture("Cannon"), new Vector2(-ResourceManager.GetTexture("Cannon").Width / 2, -ResourceManager.GetTexture("Cannon").Height / 2) + Mouse.GetState().Position.ToVector2(), 0.2f), new Vector2(0, 0))
+            };
+
         }
 
 
