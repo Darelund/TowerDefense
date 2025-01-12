@@ -71,10 +71,10 @@ namespace TowerDefense
             //Texture2D tex = tower.GetTexture;
             tower.Position = new Vector2((-selectedGameObject.GetTexture.Width * selectedGameObject._scale) / 2, (-selectedGameObject.GetTexture.Height * selectedGameObject._scale) / 2) + Mouse.GetState().Position.ToVector2();
           //  float scale = tower._scale;
-          Debug.WriteLine(tower.GetType().Name);
+         // Debug.WriteLine(tower.GetType().Name);
             _gameObjects.Add(tower);
             OnObjectPlaced?.Invoke();
-            Debug.WriteLine(_gameObjects.Count);
+          //  Debug.WriteLine(_gameObjects.Count);
             DrawOnRenderTarget();
         }
 
@@ -86,7 +86,7 @@ namespace TowerDefense
         }
         public static void Draw()
         {
-            _spriteBatch.Draw(_renderTarget, new Vector2(0, 0), Color.White);
+            DrawRenderTargets();
         }
         public static void DrawOnRenderTarget()
         {
@@ -94,7 +94,7 @@ namespace TowerDefense
             _graphicsDevice.SetRenderTarget(_renderTarget);
             _graphicsDevice.Clear(Color.Transparent);
             _spriteBatch.Begin();
-            Debug.WriteLine("Changed render");
+           // Debug.WriteLine("Changed render");
             //Rita ut texturen. Den ritas nu ut till vårt render target istället
             //för på skärmen.
             if (_gameObjects != null && _gameObjects.Count > 0)
@@ -111,6 +111,35 @@ namespace TowerDefense
 
             //Sätt GraphicsDevice att åter igen peka på skärmen
             _graphicsDevice.SetRenderTarget(null);
+        }
+        public static void DrawRenderTargets()
+        {
+            //Ändra så att GraphicsDevice ritar mot vårt render target
+            _graphicsDevice.SetRenderTarget(_renderTarget);
+            _graphicsDevice.Clear(Color.Transparent);
+            _spriteBatch.Begin();
+            // Debug.WriteLine("Changed render");
+            //Rita ut texturen. Den ritas nu ut till vårt render target istället
+            //för på skärmen.
+            if (_gameObjects != null && _gameObjects.Count > 0)
+            {
+                foreach (var gameObject in _gameObjects)
+                {
+                    gameObject.Draw(_spriteBatch);
+                }
+            }
+
+            //  _spriteBatch.Draw(_transparent, Vector2.Zero, Color.White);
+            LevelManager.CurrentLevel.Road.DrawFill(GameManager.Device, LevelManager.CurrentLevel.Texture);
+            _spriteBatch.End();
+
+            //Sätt GraphicsDevice att åter igen peka på skärmen
+            _graphicsDevice.SetRenderTarget(null);
+
+            _spriteBatch.Begin();
+            _graphicsDevice.Clear(Color.DarkSeaGreen);
+            _spriteBatch.Draw(_renderTarget, new Vector2(0, 0), Color.White);
+            _spriteBatch.End();
         }
 
         //private static bool CanPlace(GameObject g)

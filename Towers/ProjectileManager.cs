@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -41,6 +42,7 @@ namespace TowerDefense
             foreach (Projectile t in Projectiles)
             {
                 t.Draw(spriteBatch);
+              //  Debug.WriteLine(t.Position);
             }
             spriteBatch.End();
        }

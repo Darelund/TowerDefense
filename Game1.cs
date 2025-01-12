@@ -62,8 +62,6 @@ namespace TowerDefense
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.DarkSeaGreen);
-
-
             GameManager.Draw(_spriteBatch);
 
             base.Draw(gameTime);

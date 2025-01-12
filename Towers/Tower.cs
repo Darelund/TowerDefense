@@ -12,18 +12,26 @@ namespace TowerDefense
     public class Tower : GameObject
     {
        // private Texture2D _baseTexture;
-        private int delay = 400;
-        private int timeSinceLast = 0;
-
+        
 
         public int Price {  get; protected set; }
 
-        //stats
-        //Textures
-        //Shooting speed
-        //Bullet speed
 
-       // protected Projectile _laser = null;
+
+        //**stats**
+
+        //Textures
+
+        //Bullet speed
+        public float BulletSpeed = 4f;
+
+        //Delay/Shooting speed
+        public bool _canFire = true;
+        public float fireDelay = 0.5f;
+        protected float timeSinceLastFired = 0;
+
+
+        // protected Projectile _laser = null;
         public Tower(Texture2D tex, Vector2 pos, float scale) : base(tex, pos, scale)
         {
            // _baseTexture = ResourceManager.GetTexture("Tower");

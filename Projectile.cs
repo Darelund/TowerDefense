@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using SharpDX.Direct3D9;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,7 +20,7 @@ namespace TowerDefense
         private Vector2 _direction;
         public float dmg { get; private set; } = 1;
 
-        public Projectile(Texture2D tex, Vector2 startPos, Vector2 direction, float rotation, float speed): base(tex, startPos) 
+        public Projectile(Texture2D tex, Vector2 startPos, Vector2 direction, float rotation, float speed, float scale): base(tex, startPos, scale) 
         {
           //  pos = startPos;
            // this.startPos = startPos;
@@ -46,9 +47,10 @@ namespace TowerDefense
             if(gameObject is Enemy enemy)
             {
               //  IsActive = false;
-              CollisionManager.Collidables.Remove(this);
+                CollisionManager.Collidables.Remove(this);
                 ProjectileManager.Projectiles.Remove(this);
                 //Enemy take damage?
+                Debug.WriteLine("Hit enemy");
             }
         }
     }

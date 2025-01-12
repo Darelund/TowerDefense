@@ -11,11 +11,12 @@ namespace TowerDefense
 {
     public class CannonTower : Tower
     {
-        public float DetectionRadius { get; set; } = 400;
+        public float DetectionRadius { get; set; } = 200;
         private GameObject _targetEnemy;
         public CannonTower(Texture2D tex, Vector2 pos, float scale) : base(tex, pos, scale)
         {
             Price = 5;
+            _origin = new Vector2(texture.Width / 2f, texture.Height / 4);
         }
         public override void Update(GameTime gameTime)
         {
@@ -25,7 +26,15 @@ namespace TowerDefense
             //if (_laser != null)
             //    _laser.Update(gameTime);
             //}
-
+            if(!_canFire)
+            {
+                timeSinceLastFired += (float)gameTime.ElapsedGameTime.TotalSeconds;
+                if(timeSinceLastFired >= fireDelay)
+                {
+                    _canFire = true;
+                    timeSinceLastFired = 0;
+                }
+            }
             Detection();
         }
         public override void Draw(SpriteBatch spriteBatch)
@@ -60,19 +69,23 @@ namespace TowerDefense
             var direction = enemy.Position - position;
             direction.Normalize();
 
-            var angle = MathF.Atan2(direction.Y, direction.X);
+            var angle = MathF.Atan2(direction.X, -direction.Y);
             _rotation = angle;
 
 
         }
         private void FireProjectile(Vector2 direction)
         {
+            if (!_canFire) return;
+
+            _canFire = false;
            // Debug.WriteLine("Is this getting run?");
-            var prj = new Projectile(texture, position, direction, _rotation, 10f);
+            var prj = new Projectile(ResourceManager.GetTexture("Bullet_Cannon"), position, direction, _rotation, BulletSpeed, 0.2f);
             CollisionManager.Collidables.Add(prj);
             ProjectileManager.Projectiles.Add(prj);
+          //  Debug.WriteLine(prj.Position);
 
-            Debug.WriteLine(ProjectileManager.Projectiles.Count);
+          //  Debug.WriteLine(ProjectileManager.Projectiles.Count);
         }
     }
 }

@@ -93,7 +93,6 @@ namespace TowerDefense
 
                     LevelManager.Update(gameTime);
                     EnemyManager.Update(gameTime);
-                    ProjectileManager.Update(gameTime);
 
                     foreach (var selector in gameObjectSelectors)
                     {
@@ -128,7 +127,7 @@ namespace TowerDefense
 
                     GameObjectPlacer.UpdateObjectsOnTheRenderTarget(gameTime);
 
-
+                    ProjectileManager.Update(gameTime);
                     //Debug stuff
                     if (InputManager.RightClick())
                         LevelEditor.OpenLevelMapFile(LevelManager.CurrentLevel);
@@ -176,17 +175,20 @@ namespace TowerDefense
 
 
                     spriteBatch.Begin();
-                    UIManager.Draw(spriteBatch);
 
                     if (_selectedObject != null)
                     {
                         _selectedObject.Draw(spriteBatch);
                         GameObjectPlacer.Draw(_selectedObject);
                     }
-                    else
+                    if (_selectedObject == null)
                     {
+                        spriteBatch.End();
+                        Device.Clear(Color.DarkSeaGreen);
                         GameObjectPlacer.Draw();
+                        spriteBatch.Begin();
                     }
+                    UIManager.Draw(spriteBatch);
 
                     foreach (var selector in gameObjectSelectors)
                     {
@@ -195,9 +197,8 @@ namespace TowerDefense
                     spriteBatch.End();
                     LevelManager.Draw(spriteBatch);
                     EnemyManager.Draw(spriteBatch);
-                    ProjectileManager.Draw(spriteBatch);
 
-                   
+                    ProjectileManager.Draw(spriteBatch);
 
                     break;
                 case GameState.Pause:
