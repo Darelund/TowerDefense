@@ -12,7 +12,7 @@ namespace TowerDefense
 {
     public class EnemyManager
     {
-        public static List<Enemy> enemies;
+        public static List<GameObject> enemies;
         private static GraphicsDevice _device;
 
 
@@ -33,7 +33,7 @@ namespace TowerDefense
 
         public static void SetUp(GraphicsDevice graphicsDevice)
         {
-            enemies = new List<Enemy>();
+            enemies = new List<GameObject>();
             _device = graphicsDevice;
             LoadNextWave();
         }
@@ -92,17 +92,17 @@ namespace TowerDefense
         {
             //Should add logic to know if its time to spawn
             LoadWave(gameTime);
-            foreach (Enemy car in enemies)
+            foreach (Enemy enemy in enemies)
             {
-                car.Update(gameTime);
+                enemy.Update(gameTime);
             }
         }
         public static void Draw(SpriteBatch spriteBatch)
         {
-            foreach(Enemy car in enemies)
+            foreach(Enemy enemy in enemies)
             {
-                if(!car.IsHit)
-                car.Draw(spriteBatch);
+                if(!enemy.IsHit)
+                    enemy.Draw(spriteBatch);
             }
         }
         public static void LoadNextWave()

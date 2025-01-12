@@ -89,9 +89,20 @@ namespace TowerDefense
         }
         public override void OnCollision(GameObject gameObject)
         {
-            if(gameObject.GetType() == typeof(Projectile))
+            //if(gameObject.GetType() == typeof(Projectile))
+            //{
+            //    Debug.WriteLine("Bullet hit");
+
+            //}
+            if(gameObject is Projectile projectile)
             {
-                Debug.WriteLine("Bullet hit");
+                _health -= projectile.dmg;
+
+                if(_health <= 0)
+                {
+                    CollisionManager._collidables.Remove(this);
+                    EnemyManager.enemies.Remove(this);
+                }
             }
         }
     }

@@ -11,27 +11,45 @@ namespace TowerDefense
 {
     public class Projectile : GameObject
     {
-        private float range = 50;
-        private float speed = 2;
-        private Vector2 pos;
-        private Vector2 startPos;
-        public Rectangle hitBox;
+      //  private float range = 50;
+        private float _speed = 2;
+       // private Vector2 pos;
+      //  private Vector2 startPos;
+       // public Rectangle hitBox;
+        private Vector2 _direction;
+        public float dmg { get; private set; } = 1;
 
-        public Projectile(Texture2D tex, Vector2 startPos): base(tex, startPos) {
-            pos = startPos;
-            this.startPos = startPos;
-            hitBox = new Rectangle((int)pos.X, (int)pos.Y, texture.Height, texture.Width);
+        public Projectile(Texture2D tex, Vector2 startPos, Vector2 direction, float rotation, float speed): base(tex, startPos) 
+        {
+          //  pos = startPos;
+           // this.startPos = startPos;
+          //  hitBox = new Rectangle((int)position.X, (int)position.Y, texture.Height, texture.Width);
+
+            _rotation = rotation;
+            _speed = speed;
+            _direction = direction;
         }
 
         public override void Update(GameTime gameTime)
         {
-            pos.X -= speed;
-            hitBox.X=(int)pos.X;
+            position += _direction * _speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+            // hitBox.X = (int)position.X;
         }
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(texture, pos, Color.White);
+            //spriteBatch.Draw(texture, position, Color.White);
+            base.Draw(spriteBatch);
+        }
+        public override void OnCollision(GameObject gameObject)
+        {
+            if(gameObject is Enemy enemy)
+            {
+              //  IsActive = false;
+              CollisionManager._collidables.Remove(this);
+                ProjectileManager.Projectiles.Remove(this);
+                //Enemy take damage?
+            }
         }
     }
 }

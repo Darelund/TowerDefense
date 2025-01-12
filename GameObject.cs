@@ -21,6 +21,7 @@ namespace TowerDefense
         protected SpriteEffects _spriteEffect;
         protected float _layerDepth;
         public Color Color = Color.White;
+        public bool IsActive = true;
 
         public Texture2D GetTexture => texture;
         public Vector2 Position
