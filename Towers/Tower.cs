@@ -35,7 +35,7 @@ namespace TowerDefense
                  if(_laser != null)
                 _laser.Update(gameTime);
             //}
-            
+            Detection();
         }
         public override void Draw(SpriteBatch spriteBatch)
         {

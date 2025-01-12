@@ -56,5 +56,9 @@ namespace TowerDefense
         {
             spriteBatch.Draw(texture, position, null, Color, _rotation, _origin, _scale, _spriteEffect, _layerDepth);
         }
+        public virtual void OnCollision(GameObject gameObject)
+        {
+
+        }
     }
 }

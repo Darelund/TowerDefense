@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -84,6 +85,13 @@ namespace TowerDefense
             {
                 if (!IsHit)
                 _car.DrawMovingObject(_currentCurvePos, spriteBatch, texture);
+            }
+        }
+        public override void OnCollision(GameObject gameObject)
+        {
+            if(gameObject.GetType() == typeof(Projectile))
+            {
+                Debug.WriteLine("Bullet hit");
             }
         }
     }

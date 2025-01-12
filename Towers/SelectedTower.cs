@@ -1,25 +1,24 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using SharpDX.Direct2D1.Effects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace TowerDefense
 {
     public class SelectedTower : GameObject
     {
-        public Tower TowerPrefab { get; private set; }
+        // public Tower TowerPrefab { get; private set; }
+        private string _type;
+
+
         public SelectedTower(string type, Texture2D tex, Vector2 pos, float scale) : base(tex, pos, scale)
         {
-            TowerPrefab = type switch
-            {
-                "Cannon" => new CannonTower(tex, pos, scale),
-                "MG" => new MGTower(tex, pos, scale),
-                "Missile" => new MissileTower(tex, pos, scale),
-                _ => throw new NotImplementedException()
-            };
+            _type = type;
         }
         public override void Update(GameTime gameTime)
         {
@@ -30,7 +29,13 @@ namespace TowerDefense
         }
         public Tower GetPrefab()
         {
-            return TowerPrefab;
+            return _type switch
+            {
+                "Cannon" => new CannonTower(texture, position, _scale),
+                "MG" => new MGTower(texture, position, _scale),
+                "Missile" => new MissileTower(texture, position, _scale),
+                _ => throw new NotImplementedException()
+            };
         }
     }
 }

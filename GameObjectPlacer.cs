@@ -57,10 +57,11 @@ namespace TowerDefense
         private static void PlaceDownObject(SelectedTower selectedGameObject)
         {
             var tower = selectedGameObject.GetPrefab();
-            Texture2D tex = tower.GetTexture;
-            Vector2 vec = tower.Position = new Vector2((-selectedGameObject.GetTexture.Width * selectedGameObject._scale) / 2, (-selectedGameObject.GetTexture.Height * selectedGameObject._scale) / 2) + Mouse.GetState().Position.ToVector2();
-            float scale = tower._scale;
-            _gameObjects.Add(new Tower(tex, vec, scale));
+            //Texture2D tex = tower.GetTexture;
+            tower.Position = new Vector2((-selectedGameObject.GetTexture.Width * selectedGameObject._scale) / 2, (-selectedGameObject.GetTexture.Height * selectedGameObject._scale) / 2) + Mouse.GetState().Position.ToVector2();
+          //  float scale = tower._scale;
+          Debug.WriteLine(tower.GetType().Name);
+            _gameObjects.Add(tower);
             OnObjectPlaced?.Invoke();
             Debug.WriteLine(_gameObjects.Count);
             DrawOnRenderTarget();

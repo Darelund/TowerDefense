@@ -10,7 +10,7 @@ namespace TowerDefense
     public class EconomyManager
     {
         //TODO Add money
-        public static int MoneyAmount { get; private set; } = 10;
+        public static int MoneyAmount { get; private set; } = 50;
         public static event Action OnMoneyAmountChanged;
         public static void UpdateScore(int points)
         {

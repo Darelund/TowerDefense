@@ -108,10 +108,10 @@ namespace TowerDefense
                             if (selector.IsMouseOver())
                             {
                                 // Create a select object
-                                if(EconomyManager.MoneyAmount >= selector.Prefab.TowerPrefab.Price)
+                                if(EconomyManager.MoneyAmount >= selector.Prefab.GetPrefab().Price)
                                 {
                                     _selectedObject = selector.SelectedObject();
-                                    EconomyManager.UpdateScore(-selector.Prefab.TowerPrefab.Price);
+                                    EconomyManager.UpdateScore(-selector.Prefab.GetPrefab().Price);
                                 }
                                else
                                 {
