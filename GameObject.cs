@@ -20,6 +20,7 @@ namespace TowerDefense
         public float _scale;
         protected SpriteEffects _spriteEffect;
         protected float _layerDepth;
+        public Color Color = Color.White;
 
         public Texture2D GetTexture => texture;
         public Vector2 Position
@@ -53,7 +54,7 @@ namespace TowerDefense
       
         public virtual void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(texture, position, null, Color.White, _rotation, _origin, _scale, _spriteEffect, _layerDepth);
+            spriteBatch.Draw(texture, position, null, Color, _rotation, _origin, _scale, _spriteEffect, _layerDepth);
         }
     }
 }

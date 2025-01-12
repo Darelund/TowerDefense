@@ -27,7 +27,7 @@ namespace TowerDefense
         public override void Draw(SpriteBatch spriteBatch)
         {
             // spriteBatch.Draw(_baseTexture, position, null, Color.White, _rotation, _origin, _scale, _spriteEffect, _layerDepth);
-            spriteBatch.Draw(texture, position, null, Color.White, _rotation, _origin, _scale, _spriteEffect, _layerDepth);
+            spriteBatch.Draw(texture, position, null, Color, _rotation, _origin, _scale, _spriteEffect, _layerDepth);
 
             if (_laser != null)
                 _laser.Draw(spriteBatch);

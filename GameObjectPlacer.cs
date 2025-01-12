@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using SharpDX.Direct3D9;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -35,11 +36,23 @@ namespace TowerDefense
 
             selectedGameObject.Position = new Vector2((-selectedGameObject.GetTexture.Width * selectedGameObject._scale) / 2, (-selectedGameObject.GetTexture.Height * selectedGameObject._scale) / 2) + Mouse.GetState().Position.ToVector2();
            // selectedGameObject.Update(gameTime); //Need to Update the position so it follows the mouse
-
-            if (InputManager.CurrentMouse.LeftButton == ButtonState.Released && CanPlace(selectedGameObject))
+           if(CanPlace(selectedGameObject))
             {
-                PlaceDownObject(selectedGameObject);
+                selectedGameObject.Color = Color.LawnGreen;
+                if (InputManager.CurrentMouse.LeftButton == ButtonState.Released)
+                {
+                    PlaceDownObject(selectedGameObject);
+                }
             }
+           else
+            {
+                selectedGameObject.Color = Color.Red;
+                if (InputManager.CurrentMouse.LeftButton == ButtonState.Released)
+                {
+                    OnObjectPlaced?.Invoke();
+                }
+            }
+
         }
         private static void PlaceDownObject(SelectedTower selectedGameObject)
         {
@@ -80,7 +93,8 @@ namespace TowerDefense
                 }
             }
 
-          //  _spriteBatch.Draw(_transparent, Vector2.Zero, Color.White);
+            //  _spriteBatch.Draw(_transparent, Vector2.Zero, Color.White);
+          LevelManager.CurrentLevel.Road.DrawFill(GameManager.Device, LevelManager.CurrentLevel.Texture);
             _spriteBatch.End();
 
             //Sätt GraphicsDevice att åter igen peka på skärmen

@@ -11,7 +11,7 @@ namespace TowerDefense
 {
     public class Level
     {
-        private CatmullRomPath _road; //Draw road
+        public CatmullRomPath Road { get; private set; } //Draw road
 
         //Deras position?
         private float _curveCurrentPos = 0;
@@ -23,12 +23,12 @@ namespace TowerDefense
         //OM jag lägger till fler banor
         public static int LevelNbr;
 
-        private Texture2D _texture;
+        public Texture2D Texture { get; private set; }
         private string _levelMap;
         public string LevelMap => _levelMap;
         public Level(GraphicsDevice device, Texture2D tex, string map)
         {
-            _texture = tex;
+            Texture = tex;
             _device = device;
             LevelNbr++;
             _levelMap = map;
@@ -46,20 +46,20 @@ namespace TowerDefense
         }
         public void Draw(SpriteBatch spriteBatch)
         {
-            _road.DrawFill(_device, _texture);
+            //Road.DrawFill(_device, Texture);
         }
         public void LoadMap()
         {
             float tensionRoad = 0.5f;//Default tension för nu
 
-            _road = new CatmullRomPath(_device, tensionRoad);
-            _road.Clear();//Vi vill inte ha default punkter, vi vill göra en egen väg
+            Road = new CatmullRomPath(_device, tensionRoad);
+            Road.Clear();//Vi vill inte ha default punkter, vi vill göra en egen väg
 
             //Skapa path
-            LoadPath.LoadPathFromFile(_road, _levelMap);
+            LoadPath.LoadPathFromFile(Road, _levelMap);
 
             //Grejer för hur fett road ska vara och vad den ska innehålla
-            _road.DrawFillSetup(_device, 30, 5, 26);
+            Road.DrawFillSetup(_device, 30, 5, 26);
         }
     }
 }

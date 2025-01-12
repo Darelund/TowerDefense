@@ -177,9 +177,7 @@ namespace TowerDefense
 
 
 
-                    LevelManager.Draw(spriteBatch);
-                    EnemyManager.Draw(spriteBatch);
-                    TowerManager.Draw(spriteBatch);
+                  
 
 
 
@@ -200,6 +198,11 @@ namespace TowerDefense
                         selector.Draw(spriteBatch);
                     }
                     spriteBatch.End();
+                    LevelManager.Draw(spriteBatch);
+                    EnemyManager.Draw(spriteBatch);
+                    TowerManager.Draw(spriteBatch);
+
+                   
 
                     break;
                 case GameState.Pause:
