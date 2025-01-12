@@ -16,7 +16,7 @@ namespace TowerDefense
         public SelectedTower Prefab { get; private set; }
         public Rectangle Bounds { get; private set; }
         private float _scale;
-
+        public Color Color;
         public GameObjectSelector(Texture2D icon, SelectedTower prefab, Vector2 position, float scale)
         {
             Icon = icon;
@@ -27,7 +27,7 @@ namespace TowerDefense
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(Icon, Bounds, Color.White);
+            spriteBatch.Draw(Icon, Bounds, Color);
         }
         public bool IsMouseOver()
         {

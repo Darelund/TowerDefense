@@ -11,10 +11,10 @@ namespace TowerDefense
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
-        private string _textures = "Bullet_Cannon,Bullet_MG,Cannon,Cannon2,Cannon3,car,transparentSquareBackground,MG,MG2,MG3,Missile,Missile_Launcher,Missile_Launcher2,Missile_Launcher3,police,road,Tower,yellow";
+        private string _textures = "DollarSign,Bullet_Cannon,Bullet_MG,Cannon,Cannon2,Cannon3,car,transparentSquareBackground,MG,MG2,MG3,Missile,Missile_Launcher,Missile_Launcher2,Missile_Launcher3,police,road,Tower,yellow";
         private string _soundEffects = "";
         private string _music = "";
-        private string _spriteFonts = "";
+        private string _spriteFonts = "GameText";
         private string _effects = "";
 
 

@@ -14,6 +14,7 @@ namespace TowerDefense
        // private Texture2D _baseTexture;
         private int delay = 400;
         private int timeSinceLast = 0;
+        public int Price {  get; protected set; }
 
         protected Projectile _laser = null;
         public Tower(Texture2D tex, Vector2 pos, float scale) : base(tex, pos, scale)

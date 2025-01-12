@@ -10,10 +10,10 @@ namespace TowerDefense
 {
     public class SelectedTower : GameObject
     {
-        private Tower _prefab;
+        public Tower TowerPrefab { get; private set; }
         public SelectedTower(string type, Texture2D tex, Vector2 pos, float scale) : base(tex, pos, scale)
         {
-            _prefab = type switch
+            TowerPrefab = type switch
             {
                 "Cannon" => new CannonTower(tex, pos, scale),
                 "MG" => new MGTower(tex, pos, scale),
@@ -30,7 +30,7 @@ namespace TowerDefense
         }
         public Tower GetPrefab()
         {
-            return _prefab;
+            return TowerPrefab;
         }
     }
 }

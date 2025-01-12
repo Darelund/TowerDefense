@@ -51,7 +51,7 @@ namespace TowerDefense
         }
         public static void ContentLoad(SpriteBatch spriteBatch)
         {
-            //  UIManager.LoadContent();
+              UIManager.LoadContent();
             // AudioManager.LoadContent();
             // HighScore.LoadScores();
             //LevelManager.CreateLevels();
@@ -89,27 +89,34 @@ namespace TowerDefense
                     // LevelEditor.Update();
 
 
-                    //  UIManager.Update(gameTime);
+                      UIManager.Update(gameTime);
 
                     LevelManager.Update(gameTime);
                     EnemyManager.Update(gameTime);
                     TowerManager.Update(gameTime);
 
+                    foreach (var selector in gameObjectSelectors)
+                    {
+                        selector.Color = Color.White;
+                    }
 
-                    //Select a tower to place down
-                    if (_selectedObject == null && InputManager.CurrentMouse.LeftButton == ButtonState.Pressed)
+                        //Select a tower to place down
+                        if (_selectedObject == null && InputManager.CurrentMouse.LeftButton == ButtonState.Pressed)
                     {
                         foreach (var selector in gameObjectSelectors)
                         {
                             if (selector.IsMouseOver())
                             {
                                 // Create a select object
-                                _selectedObject = selector.SelectedObject();
-                                //_selectedObject = new Tower(
-                                //    selector.Prefab.GetTexture,
-                                //    Vector2.Zero,
-                                //    selector.Prefab._scale
-                                //);
+                                if(EconomyManager.MoneyAmount >= selector.Prefab.TowerPrefab.Price)
+                                {
+                                    _selectedObject = selector.SelectedObject();
+                                    EconomyManager.UpdateScore(-selector.Prefab.TowerPrefab.Price);
+                                }
+                               else
+                                {
+                                    selector.Color = Color.Red;
+                                }
                                 break;
                             }
                         }
@@ -117,18 +124,6 @@ namespace TowerDefense
                     if (_selectedObject != null)
                     {
                         GameObjectPlacer.Update(gameTime, _selectedObject);
-
-                        // Handle placement attempt
-                        //if (InputManager.CurrentMouse.LeftButton == ButtonState.Released)
-                        //{
-                        //    if (GameObjectPlacer.CanPlace(_selectedObject))
-                        //    {
-                        //        GameObjectPlacer.PlaceObject(_selectedObject);
-                        //    }
-
-                        //    // Discard the select object when releasing left mouse
-                        //    _selectedObject = null;
-                        //}
                     }
 
 
@@ -170,7 +165,6 @@ namespace TowerDefense
                     break;
                 case GameState.Playing:
 
-                    // UIManager.Draw(spriteBatch);
 
 
                     // LevelEditor.Draw(spriteBatch);
@@ -182,8 +176,9 @@ namespace TowerDefense
 
 
                     spriteBatch.Begin();
-                   
-                    if(_selectedObject != null)
+                    UIManager.Draw(spriteBatch);
+
+                    if (_selectedObject != null)
                     {
                         _selectedObject.Draw(spriteBatch);
                         GameObjectPlacer.Draw(_selectedObject);

@@ -13,6 +13,7 @@ namespace TowerDefense
     {
         public CannonTower(Texture2D tex, Vector2 pos, float scale) : base(tex, pos, scale)
         {
+            Price = 5;
         }
         public override void Update(GameTime gameTime)
         {

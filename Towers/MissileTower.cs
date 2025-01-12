@@ -12,7 +12,7 @@ namespace TowerDefense
     {
         public MissileTower(Texture2D tex, Vector2 pos, float scale) : base(tex, pos, scale)
         {
-
+            Price = 25;
         }
         public override void Update(GameTime gameTime)
         {
