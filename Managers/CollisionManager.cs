@@ -8,21 +8,23 @@ namespace TowerDefense
 {
     public static class CollisionManager
     {
-        public static List<GameObject> _collidables => EnemyManager.enemies;
+        //   public static List<GameObject> _collidables => EnemyManager.enemies;//THis is the problem
+           public static List<GameObject> Collidables { get; private set; } = new List<GameObject>();
+
         public static void CheckCollision()
         {
             //  Debug.WriteLine(_collidables.Count);
-            for (int i = 0; i < _collidables.Count; i++)
+            for (int i = 0; i < Collidables.Count; i++)
             {
-                for (int j = i + 1; j < _collidables.Count; j++)
+                for (int j = i + 1; j < Collidables.Count; j++)
                 {
-                    if (_collidables[i].Hitbox.Intersects(_collidables[j].Hitbox))
+                    if (Collidables[i].Hitbox.Intersects(Collidables[j].Hitbox))
                     {
-                        _collidables[j].OnCollision(_collidables[i]);
+                        Collidables[j].OnCollision(Collidables[i]);
 
                         if (CollisionExistsAtPosition(j))
                         {
-                            _collidables[i].OnCollision(_collidables[j]);
+                            Collidables[i].OnCollision(Collidables[j]);
                         }
                     }
                 }
@@ -31,7 +33,7 @@ namespace TowerDefense
         }
         private static bool CollisionExistsAtPosition(int collisionPos)
         {
-            if (collisionPos >= _collidables.Count) return false;
+            if (collisionPos >= Collidables.Count) return false;
 
             return true;
         }

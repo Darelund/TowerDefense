@@ -46,7 +46,7 @@ namespace TowerDefense
             if(gameObject is Enemy enemy)
             {
               //  IsActive = false;
-              CollisionManager._collidables.Remove(this);
+              CollisionManager.Collidables.Remove(this);
                 ProjectileManager.Projectiles.Remove(this);
                 //Enemy take damage?
             }

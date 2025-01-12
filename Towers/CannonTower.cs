@@ -11,7 +11,7 @@ namespace TowerDefense
 {
     public class CannonTower : Tower
     {
-        public float DetectionRadius { get; set; } = 40;
+        public float DetectionRadius { get; set; } = 400;
         private GameObject _targetEnemy;
         public CannonTower(Texture2D tex, Vector2 pos, float scale) : base(tex, pos, scale)
         {
@@ -41,12 +41,16 @@ namespace TowerDefense
         {
             foreach (var enemy in EnemyManager.enemies)
             {
+               // Debug.WriteLine("Is this getting run?");
+              //  Debug.WriteLine(Vector2.Distance(position, enemy.Position));
                 if (Vector2.Distance(position, enemy.Position) <= DetectionRadius)
                 {
+                 //   Debug.WriteLine("Is this getting run?");
                     _targetEnemy = enemy;
                     RotateTowardsEnemy(enemy);
                     var direction = enemy.Position - position;
                     FireProjectile(direction);
+                   // throw new Exception("Came this far");
                     break; // Stop checking once an enemy is targeted
                 }
             }
@@ -63,9 +67,12 @@ namespace TowerDefense
         }
         private void FireProjectile(Vector2 direction)
         {
+           // Debug.WriteLine("Is this getting run?");
             var prj = new Projectile(texture, position, direction, _rotation, 10f);
-            CollisionManager._collidables.Add(prj);
+            CollisionManager.Collidables.Add(prj);
             ProjectileManager.Projectiles.Add(prj);
+
+            Debug.WriteLine(ProjectileManager.Projectiles.Count);
         }
     }
 }

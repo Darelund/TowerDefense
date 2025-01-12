@@ -12,7 +12,7 @@ namespace TowerDefense
 {
     public class EnemyManager
     {
-        public static List<GameObject> enemies;
+        public static List<GameObject> enemies { get; private set; }
         private static GraphicsDevice _device;
 
 
@@ -64,26 +64,28 @@ namespace TowerDefense
                 {
                     _timeSinceLastCar -= _millisecondsBetweenCreation; //Reset
                     Vector2 defaultPos = new Vector2(0, 0);
-
-                    if(_nbrOfNormalCarsInCurrentWave > 0)
+                    Enemy car = null;
+                    if (_nbrOfNormalCarsInCurrentWave > 0)
                     {
-                        Enemy car = new NormalEnemy(_device, ResourceManager.GetTexture("car"), defaultPos);
-                        enemies.Add(car);
+                        car = new NormalEnemy(_device, ResourceManager.GetTexture("car"), defaultPos);
                         _nbrOfNormalCarsInCurrentWave--;
                     }
                     else if (_nbrOfScoutCarsInCurrentWave > 0)
                     {
-                        Enemy car = new ScoutEnemy(_device, ResourceManager.GetTexture("scoutCar"), defaultPos);
-                        enemies.Add(car);
+                        car = new ScoutEnemy(_device, ResourceManager.GetTexture("scoutCar"), defaultPos);
                         _nbrOfScoutCarsInCurrentWave--;
                     }
                     else if (_nbrOfHeavyCarsInCurrentWave > 0)
                     {
-                        Enemy car = new HeavyEnemy(_device, ResourceManager.GetTexture("heavyCar"), defaultPos);
-                        enemies.Add(car);
+                        car = new HeavyEnemy(_device, ResourceManager.GetTexture("heavyCar"), defaultPos);
+                        
                         _nbrOfHeavyCarsInCurrentWave--;
                     }
-
+                    if(car != null)
+                    {
+                        enemies.Add(car);
+                        CollisionManager.Collidables.Add(car);
+                    }
                     _nbrOfCarsSpawned++;
                 }
             }

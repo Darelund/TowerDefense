@@ -53,6 +53,17 @@ namespace TowerDefense
                 }
             }
 
+           
+        }
+        public static void UpdateObjectsOnTheRenderTarget(GameTime gameTime)
+        {
+            if (_gameObjects != null && _gameObjects.Count > 0)
+            {
+                foreach (var gameObject in _gameObjects)
+                {
+                    gameObject.Update(gameTime);
+                }
+            }
         }
         private static void PlaceDownObject(SelectedTower selectedGameObject)
         {

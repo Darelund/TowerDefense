@@ -100,7 +100,7 @@ namespace TowerDefense
 
                 if(_health <= 0)
                 {
-                    CollisionManager._collidables.Remove(this);
+                    CollisionManager.Collidables.Remove(this);
                     EnemyManager.enemies.Remove(this);
                 }
             }
