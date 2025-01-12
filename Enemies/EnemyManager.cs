@@ -11,7 +11,7 @@ namespace TowerDefense
 {
     public class EnemyManager
     {
-        public static List<Enemy> cars;
+        public static List<Enemy> enemies;
         private static GraphicsDevice _device;
 
 
@@ -23,7 +23,7 @@ namespace TowerDefense
 
         public static void SetUp(GraphicsDevice graphicsDevice)
         {
-            cars = new List<Enemy>();
+            enemies = new List<Enemy>();
             _device = graphicsDevice;
         }
         public static void LoadWave(GameTime gameTime)
@@ -33,8 +33,8 @@ namespace TowerDefense
             {
                 _timeSinceLastCar -= _millisecondsBetweenCreation; //Reset
                 Vector2 defaultPos = new Vector2(0, 0);
-                Enemy car = new Enemy(_device, ResourceManager.GetTexture("car"), defaultPos);
-                cars.Add(car);
+                Enemy car = new Enemy(_device, ResourceManager.GetTexture("car"), defaultPos, EnemyType.Normal);
+                enemies.Add(car);
 
                 _nbrOfCarsSpawned++;
             }
@@ -43,14 +43,14 @@ namespace TowerDefense
         {
             //Should add logic to know if its time to spawn
             LoadWave(gameTime);
-            foreach (Enemy car in cars)
+            foreach (Enemy car in enemies)
             {
                 car.Update(gameTime);
             }
         }
         public static void Draw(SpriteBatch spriteBatch)
         {
-            foreach(Enemy car in cars)
+            foreach(Enemy car in enemies)
             {
                 if(!car.IsHit)
                 car.Draw(spriteBatch);
