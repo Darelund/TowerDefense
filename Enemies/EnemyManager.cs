@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -27,23 +28,26 @@ namespace TowerDefense
         private static int _nbrOfCarsInCurrentWave = 0;
 
         private static int _timeUntilNextWave = 10;
-        private static int _counter = 0;
+        private static float _counter = 0;
         private static bool _randomizeWave = false;
 
         public static void SetUp(GraphicsDevice graphicsDevice)
         {
             enemies = new List<Enemy>();
             _device = graphicsDevice;
+            LoadNextWave();
         }
         public static void LoadWave(GameTime gameTime)
         {
             if (_nbrOfCarsInCurrentWave <= _nbrOfCarsSpawned)
             {
-                _counter += gameTime.ElapsedGameTime.Milliseconds;
+                _counter += (float)gameTime.ElapsedGameTime.TotalSeconds;//Total gives 0... many zeros and then 16, using only seconds gives you 0
+                Debug.WriteLine(_counter);
                 if(_counter >= _timeUntilNextWave)
                 {
                     _counter = 0;
                     _nbrOfCarsSpawned = 0;
+                    _waveCount++;
                     LoadNextWave();
                 }
                 return;
@@ -67,13 +71,13 @@ namespace TowerDefense
                         enemies.Add(car);
                         _nbrOfNormalCarsInCurrentWave--;
                     }
-                    if (_nbrOfScoutCarsInCurrentWave > 0)
+                    else if (_nbrOfScoutCarsInCurrentWave > 0)
                     {
-                        Enemy car = new NormalEnemy(_device, ResourceManager.GetTexture("scoutCar"), defaultPos);
+                        Enemy car = new ScoutEnemy(_device, ResourceManager.GetTexture("scoutCar"), defaultPos);
                         enemies.Add(car);
                         _nbrOfScoutCarsInCurrentWave--;
                     }
-                    if (_nbrOfHeavyCarsInCurrentWave > 0)
+                    else if (_nbrOfHeavyCarsInCurrentWave > 0)
                     {
                         Enemy car = new HeavyEnemy(_device, ResourceManager.GetTexture("heavyCar"), defaultPos);
                         enemies.Add(car);

@@ -61,7 +61,7 @@ namespace TowerDefense
                     break;
                 case EnemyType.Scout:
                     _speed = 0.1f;
-                    _health = 2;
+                    _health = 1;
                     _reward = 5;
                     break;
                 default:
