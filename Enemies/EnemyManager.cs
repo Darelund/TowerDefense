@@ -16,10 +16,19 @@ namespace TowerDefense
 
 
         //Spawn Logic
-        private static int _timeSinceLastCar = 0;
-        private static int _millisecondsBetweenCreation = 400;
-        private static int _nbrOfCarsInCurrentWave = 10;
+        private static int _waveCount = 1;
+        private static int _timeSinceLastCar;
+        private static int _millisecondsBetweenCreation;
+        private static int _nbrOfNormalCarsInCurrentWave;
+        private static int _nbrOfHeavyCarsInCurrentWave;
+        private static int _nbrOfScoutCarsInCurrentWave;
         private static int _nbrOfCarsSpawned = 0;
+
+        private static int _nbrOfCarsInCurrentWave = 0;
+
+        private static int _timeUntilNextWave = 10;
+        private static int _counter = 0;
+        private static bool _randomizeWave = false;
 
         public static void SetUp(GraphicsDevice graphicsDevice)
         {
@@ -28,15 +37,51 @@ namespace TowerDefense
         }
         public static void LoadWave(GameTime gameTime)
         {
-            _timeSinceLastCar += gameTime.ElapsedGameTime.Milliseconds;
-            if(_nbrOfCarsInCurrentWave > _nbrOfCarsSpawned && _timeSinceLastCar > _millisecondsBetweenCreation)
+            if (_nbrOfCarsInCurrentWave <= _nbrOfCarsSpawned)
             {
-                _timeSinceLastCar -= _millisecondsBetweenCreation; //Reset
-                Vector2 defaultPos = new Vector2(0, 0);
-                Enemy car = new Enemy(_device, ResourceManager.GetTexture("car"), defaultPos, EnemyType.Normal);
-                enemies.Add(car);
+                _counter += gameTime.ElapsedGameTime.Milliseconds;
+                if(_counter >= _timeUntilNextWave)
+                {
+                    _counter = 0;
+                    _nbrOfCarsSpawned = 0;
+                    LoadNextWave();
+                }
+                return;
+            }
 
-                _nbrOfCarsSpawned++;
+            _timeSinceLastCar += gameTime.ElapsedGameTime.Milliseconds;
+            if (_randomizeWave)
+            {
+
+            }
+            else
+            {
+                if (_nbrOfCarsInCurrentWave > _nbrOfCarsSpawned && _timeSinceLastCar > _millisecondsBetweenCreation)
+                {
+                    _timeSinceLastCar -= _millisecondsBetweenCreation; //Reset
+                    Vector2 defaultPos = new Vector2(0, 0);
+
+                    if(_nbrOfNormalCarsInCurrentWave > 0)
+                    {
+                        Enemy car = new NormalEnemy(_device, ResourceManager.GetTexture("car"), defaultPos);
+                        enemies.Add(car);
+                        _nbrOfNormalCarsInCurrentWave--;
+                    }
+                    if (_nbrOfScoutCarsInCurrentWave > 0)
+                    {
+                        Enemy car = new NormalEnemy(_device, ResourceManager.GetTexture("scoutCar"), defaultPos);
+                        enemies.Add(car);
+                        _nbrOfScoutCarsInCurrentWave--;
+                    }
+                    if (_nbrOfHeavyCarsInCurrentWave > 0)
+                    {
+                        Enemy car = new HeavyEnemy(_device, ResourceManager.GetTexture("heavyCar"), defaultPos);
+                        enemies.Add(car);
+                        _nbrOfHeavyCarsInCurrentWave--;
+                    }
+
+                    _nbrOfCarsSpawned++;
+                }
             }
         }
         public static void Update(GameTime gameTime)
@@ -56,6 +101,82 @@ namespace TowerDefense
                 car.Draw(spriteBatch);
             }
         }
-
+        public static void LoadNextWave()
+        {
+            switch (_waveCount)
+            {
+                case 1:
+                    _millisecondsBetweenCreation = 2000;
+                    _nbrOfNormalCarsInCurrentWave = 10;
+                    _nbrOfHeavyCarsInCurrentWave = 0;
+                    _nbrOfScoutCarsInCurrentWave = 0;
+                    _randomizeWave = false;
+                    break;
+                case 2:
+                    _millisecondsBetweenCreation = 1500;
+                    _nbrOfNormalCarsInCurrentWave = 20;
+                    _nbrOfHeavyCarsInCurrentWave = 0;
+                    _nbrOfScoutCarsInCurrentWave = 0;
+                    _randomizeWave = false;
+                    break;
+                case 3:
+                    _millisecondsBetweenCreation = 1000;
+                    _nbrOfNormalCarsInCurrentWave = 20;
+                    _nbrOfHeavyCarsInCurrentWave = 5;
+                    _nbrOfScoutCarsInCurrentWave = 0;
+                    _randomizeWave = false;
+                    break;
+                case 4:
+                    _millisecondsBetweenCreation = 1000;
+                    _nbrOfNormalCarsInCurrentWave = 30;
+                    _nbrOfHeavyCarsInCurrentWave = 20;
+                    _nbrOfScoutCarsInCurrentWave = 0;
+                    _randomizeWave = false;
+                    break;
+                case 5:
+                    _millisecondsBetweenCreation = 1000;
+                    _nbrOfNormalCarsInCurrentWave = 30;
+                    _nbrOfHeavyCarsInCurrentWave = 15;
+                    _nbrOfScoutCarsInCurrentWave = 5;
+                    _randomizeWave = false;
+                    break;
+                case 6:
+                    _millisecondsBetweenCreation = 1000;
+                    _nbrOfNormalCarsInCurrentWave = 60;
+                    _nbrOfHeavyCarsInCurrentWave = 30;
+                    _nbrOfScoutCarsInCurrentWave = 10;
+                    _randomizeWave = false;
+                    break;
+                case 7:
+                    _millisecondsBetweenCreation = 800;
+                    _nbrOfNormalCarsInCurrentWave = 60;
+                    _nbrOfHeavyCarsInCurrentWave = 30;
+                    _nbrOfScoutCarsInCurrentWave = 10;
+                    _randomizeWave = true;
+                    break;
+                case 8:
+                    _millisecondsBetweenCreation = 600;
+                    _nbrOfNormalCarsInCurrentWave = 60;
+                    _nbrOfHeavyCarsInCurrentWave = 30;
+                    _nbrOfScoutCarsInCurrentWave = 10;
+                    _randomizeWave = true;
+                    break;
+                case 9:
+                    _millisecondsBetweenCreation = 500;
+                    _nbrOfNormalCarsInCurrentWave = 80;
+                    _nbrOfHeavyCarsInCurrentWave = 50;
+                    _nbrOfScoutCarsInCurrentWave = 20;
+                    _randomizeWave = true;
+                    break;
+                case 10:
+                    _millisecondsBetweenCreation = 500;
+                    _nbrOfNormalCarsInCurrentWave = 150;
+                    _nbrOfHeavyCarsInCurrentWave = 75;
+                    _nbrOfScoutCarsInCurrentWave = 50;
+                    _randomizeWave = true;
+                    break;
+            }
+            _nbrOfCarsInCurrentWave = _nbrOfNormalCarsInCurrentWave + _nbrOfHeavyCarsInCurrentWave + _nbrOfScoutCarsInCurrentWave;
+        }
     }
 }

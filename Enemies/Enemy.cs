@@ -45,7 +45,7 @@ namespace TowerDefense
             LoadPath.LoadPathFromFile(_car, LevelManager.CurrentLevel.LevelMap);
 
             //Grejer för hur fett bil ska vara och vad den ska innehålla
-            _car.DrawFillSetup(_device, 4, 1, 256);
+            _car.DrawFillSetup(_device, 2, 1, 256);
             _enemyType = enemyType;
             switch (_enemyType)
             {
@@ -55,12 +55,12 @@ namespace TowerDefense
                     _reward = 1;
                     break;
                 case EnemyType.Heavy:
-                    _speed = 0.02f;
+                    _speed = 0.01f;
                     _health = 30;
                     _reward = 15;
                     break;
                 case EnemyType.Scout:
-                    _speed = 0.2f;
+                    _speed = 0.1f;
                     _health = 2;
                     _reward = 5;
                     break;
