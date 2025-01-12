@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -41,6 +42,8 @@ namespace TowerDefense
         public void Deselected()
         {
             GameManager._selectedObject = null;
+            Debug.WriteLine("Trying to place object - GameObjectSelector");
+            GameObjectPlacer.OnObjectPlaced -= Deselected;
         }
     }
 }

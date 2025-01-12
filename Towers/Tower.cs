@@ -15,7 +15,7 @@ namespace TowerDefense
         private int delay = 400;
         private int timeSinceLast = 0;
 
-        private Projectile _laser = null;
+        protected Projectile _laser = null;
         public Tower(Texture2D tex, Vector2 pos, float scale) : base(tex, pos, scale)
         {
            // _baseTexture = ResourceManager.GetTexture("Tower");

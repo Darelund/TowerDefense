@@ -43,7 +43,11 @@ namespace TowerDefense
         }
         private static void PlaceDownObject(SelectedTower selectedGameObject)
         {
-            _gameObjects.Add(selectedGameObject.GetPrefab());
+            var tower = selectedGameObject.GetPrefab();
+            Texture2D tex = tower.GetTexture;
+            Vector2 vec = tower.Position = new Vector2((-selectedGameObject.GetTexture.Width * selectedGameObject._scale) / 2, (-selectedGameObject.GetTexture.Height * selectedGameObject._scale) / 2) + Mouse.GetState().Position.ToVector2();
+            float scale = tower._scale;
+            _gameObjects.Add(new Tower(tex, vec, scale));
             OnObjectPlaced?.Invoke();
             Debug.WriteLine(_gameObjects.Count);
             DrawOnRenderTarget();
@@ -58,7 +62,6 @@ namespace TowerDefense
         public static void Draw()
         {
             _spriteBatch.Draw(_renderTarget, new Vector2(0, 0), Color.White);
-
         }
         public static void DrawOnRenderTarget()
         {
@@ -77,7 +80,7 @@ namespace TowerDefense
                 }
             }
 
-            _spriteBatch.Draw(_transparent, Vector2.Zero, Color.White);
+          //  _spriteBatch.Draw(_transparent, Vector2.Zero, Color.White);
             _spriteBatch.End();
 
             //Sätt GraphicsDevice att åter igen peka på skärmen

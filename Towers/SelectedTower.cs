@@ -17,7 +17,8 @@ namespace TowerDefense
             {
                 "Cannon" => new CannonTower(tex, pos, scale),
                 "MG" => new MGTower(tex, pos, scale),
-                "Missile" => new MissileTower(tex, pos, scale)
+                "Missile" => new MissileTower(tex, pos, scale),
+                _ => throw new NotImplementedException()
             };
         }
         public override void Update(GameTime gameTime)
