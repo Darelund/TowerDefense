@@ -7,7 +7,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework.Input;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace TowerDefense
 {
@@ -34,7 +33,7 @@ namespace TowerDefense
         public static GraphicsDevice Device;
         // private static SceneSwitcher _sceneSwitcher;
 
-        private static Tower _selectedObject;
+        public static Tower _selectedObject = null;
         private static List<GameObjectSelector> gameObjectSelectors;
 
 
@@ -65,11 +64,13 @@ namespace TowerDefense
             GameObjectPlacer.SetUp(Device, Window, spriteBatch);
             GameObjectPlacer.DrawOnRenderTarget();
 
-            _selectedObject = new Tower(ResourceManager.GetTexture("Cannon"), new Vector2(-ResourceManager.GetTexture("Cannon").Width / 2, -ResourceManager.GetTexture("Cannon").Height / 2) + Mouse.GetState().Position.ToVector2(), 0.2f);
+          //  _selectedObject = new Tower(ResourceManager.GetTexture("Cannon"), new Vector2(-ResourceManager.GetTexture("Cannon").Width / 2, -ResourceManager.GetTexture("Cannon").Height / 2) + Mouse.GetState().Position.ToVector2(), 0.2f);
 
             gameObjectSelectors = new List<GameObjectSelector>()
             {
-                new GameObjectSelector(ResourceManager.GetTexture("Cannon"), new Tower(ResourceManager.GetTexture("Cannon"), new Vector2(-ResourceManager.GetTexture("Cannon").Width / 2, -ResourceManager.GetTexture("Cannon").Height / 2) + Mouse.GetState().Position.ToVector2(), 0.2f), new Vector2(0, 0))
+                new GameObjectSelector(ResourceManager.GetTexture("Cannon"), new Tower(ResourceManager.GetTexture("Cannon"), Vector2.Zero, 0.2f), Vector2.Zero),
+                new GameObjectSelector(ResourceManager.GetTexture("MG"), new Tower(ResourceManager.GetTexture("MG"), Vector2.Zero, 0.2f), Vector2.Zero),
+                new GameObjectSelector(ResourceManager.GetTexture("Missile_Launcher"), new Tower(ResourceManager.GetTexture("Missile_Launcher"), Vector2.Zero, 0.2f), Vector2.Zero)
             };
 
         }
@@ -93,9 +94,48 @@ namespace TowerDefense
                     LevelManager.Update(gameTime);
                     EnemyManager.Update(gameTime);
                     TowerManager.Update(gameTime);
-                    GameObjectPlacer.Update(gameTime, _selectedObject);
 
-                    if (InputManager.LeftClick())
+
+                    //Select a tower to place down
+                    if (_selectedObject == null && InputManager.CurrentMouse.LeftButton == ButtonState.Pressed)
+                    {
+                        foreach (var selector in gameObjectSelectors)
+                        {
+                            if (selector.IsMouseOver())
+                            {
+                                // Create a select object
+                                _selectedObject = selector.Prefab;
+                                //_selectedObject = new Tower(
+                                //    selector.Prefab.GetTexture,
+                                //    Vector2.Zero,
+                                //    selector.Prefab._scale
+                                //);
+                                break;
+                            }
+                        }
+                    }
+                    if (_selectedObject != null)
+                    {
+                        GameObjectPlacer.Update(gameTime, _selectedObject);
+
+                        // Handle placement attempt
+                        //if (InputManager.CurrentMouse.LeftButton == ButtonState.Released)
+                        //{
+                        //    if (GameObjectPlacer.CanPlace(_selectedObject))
+                        //    {
+                        //        GameObjectPlacer.PlaceObject(_selectedObject);
+                        //    }
+
+                        //    // Discard the select object when releasing left mouse
+                        //    _selectedObject = null;
+                        //}
+                    }
+
+
+
+
+                    //Debug stuff
+                    if (InputManager.RightClick())
                         LevelEditor.OpenLevelMapFile(LevelManager.CurrentLevel);
 
 
@@ -140,6 +180,9 @@ namespace TowerDefense
                     LevelManager.Draw(spriteBatch);
                     EnemyManager.Draw(spriteBatch);
                     TowerManager.Draw(spriteBatch);
+
+
+
                     spriteBatch.Begin();
                     GameObjectPlacer.Draw(_selectedObject);
                     spriteBatch.End();

@@ -19,6 +19,7 @@ namespace TowerDefense
 
         private static SpriteBatch _spriteBatch;
         private static GraphicsDevice _graphicsDevice;
+        public static event Action OnObjectPlaced;
 
         public static void SetUp(GraphicsDevice graphicsDevice, GameWindow window, SpriteBatch spriteBatch)
         {
@@ -32,16 +33,20 @@ namespace TowerDefense
         public static void Update(GameTime gameTime, GameObject selectedGameObject)
         {
 
-            selectedGameObject.SetPosition = new Vector2((-selectedGameObject.GetTexture.Width * selectedGameObject._scale) / 2, (-selectedGameObject.GetTexture.Height * selectedGameObject._scale) / 2) + Mouse.GetState().Position.ToVector2();
+            selectedGameObject.Position = new Vector2((-selectedGameObject.GetTexture.Width * selectedGameObject._scale) / 2, (-selectedGameObject.GetTexture.Height * selectedGameObject._scale) / 2) + Mouse.GetState().Position.ToVector2();
             selectedGameObject.Update(gameTime); //Need to Update the position so it follows the mouse
 
-            if (InputManager.CurrentKeyboard.IsKeyDown(Keys.E) && CanPlace(selectedGameObject))
+            if (InputManager.CurrentMouse.LeftButton == ButtonState.Released && CanPlace(selectedGameObject))
             {
-                _gameObjects.Add(new Tower(ResourceManager.GetTexture("Tower"), new Vector2((-selectedGameObject.GetTexture.Width * selectedGameObject._scale) / 2, (-selectedGameObject.GetTexture.Height * selectedGameObject._scale) / 2) + Mouse.GetState().Position.ToVector2(), 0.2f));
-
-                Debug.WriteLine(_gameObjects.Count);
-                DrawOnRenderTarget();
+                PlaceDownObject(selectedGameObject);
             }
+        }
+        private static void PlaceDownObject(GameObject selectedGameObject)
+        {
+            _gameObjects.Add(new Tower(selectedGameObject.GetTexture, selectedGameObject.Position, selectedGameObject._scale));
+            OnObjectPlaced?.Invoke();
+            Debug.WriteLine(_gameObjects.Count);
+            DrawOnRenderTarget();
         }
 
         public static void Draw(GameObject selectedGameObject)

@@ -22,8 +22,9 @@ namespace TowerDefense
         protected float _layerDepth;
 
         public Texture2D GetTexture => texture;
-        public Vector2 SetPosition
+        public Vector2 Position
         {
+            get => position;
             set => position = value;
         }
         public Rectangle Hitbox
