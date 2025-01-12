@@ -10,7 +10,7 @@ namespace TowerDefense
 {
     public class HeavyEnemy : Enemy
     {
-        public HeavyEnemy(GraphicsDevice device, Texture2D tex, Vector2 pos) : base(device, tex, pos, EnemyType.Heavy)
+        public HeavyEnemy(GraphicsDevice device, Texture2D tex, Vector2 pos, float scale) : base(device, tex, pos, EnemyType.Heavy, scale)
         {
         }
     }

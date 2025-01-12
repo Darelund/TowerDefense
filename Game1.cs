@@ -42,6 +42,7 @@ namespace TowerDefense
             ResourceManager.LoadResources(Content, _textures, _soundEffects, _music, _spriteFonts, _effects);
 
             GameManager.ContentLoad(_spriteBatch);
+
         }
 
     

@@ -29,6 +29,7 @@ namespace TowerDefense
             _rotation = rotation;
             _speed = speed;
             _direction = direction;
+            DebugRectangle.Init(GameManager.Device, (int)(texture.Width * _scale), (int)(texture.Height * _scale));
         }
 
         public override void Update(GameTime gameTime)
@@ -41,6 +42,7 @@ namespace TowerDefense
         {
             //spriteBatch.Draw(texture, position, Color.White);
             base.Draw(spriteBatch);
+            DebugRectangle.DrawRectangle(spriteBatch, new Rectangle((int)_origin.X + (int)position.X, (int)_origin.Y + (int)position.Y, (int)(texture.Width * _scale), (int)(texture.Height * _scale)), Color.Red);
         }
         public override void OnCollision(GameObject gameObject)
         {

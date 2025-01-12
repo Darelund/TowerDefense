@@ -24,7 +24,7 @@ namespace TowerDefense
         private float _currentCurvePos = 0;
         private float _speed;
         private float _health;
-        private float _reward;
+        private int _reward;
 
         private EnemyType _enemyType;
 
@@ -34,10 +34,10 @@ namespace TowerDefense
 
         private GraphicsDevice _device;
 
-        public Enemy(GraphicsDevice device, Texture2D tex, Vector2 pos, EnemyType enemyType) : base(tex, pos)
+        public Enemy(GraphicsDevice device, Texture2D tex, Vector2 pos, EnemyType enemyType, float scale) : base(tex, pos)
         {
             _device = device;
-
+            _scale = scale;
             float tensionRoad = 0.5f;
 
             _car = new CatmullRomPath(_device, tensionRoad);
@@ -68,6 +68,8 @@ namespace TowerDefense
                 default:
                     break;
             }
+          //  DebugRectangle.Init(GameManager.Device, (int)(texture.Width * _scale), (int)(texture.Height * _scale));
+
         }
         public override void Update(GameTime gameTime)
         {
@@ -85,6 +87,7 @@ namespace TowerDefense
             {
                 if (!IsHit)
                 _car.DrawMovingObject(_currentCurvePos, spriteBatch, texture);
+              //  DebugRectangle.DrawRectangle(spriteBatch, new Rectangle((int)_origin.X + (int)position.X, (int)_origin.Y + (int)position.Y, (int)(texture.Width * _scale), (int)(texture.Height * _scale)), Color.Red);
             }
         }
         public override void OnCollision(GameObject gameObject)
@@ -102,6 +105,7 @@ namespace TowerDefense
                 {
                     CollisionManager.Collidables.Remove(this);
                     EnemyManager.enemies.Remove(this);
+                    EconomyManager.UpdateScore(_reward);
                 }
             }
         }

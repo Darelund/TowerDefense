@@ -74,13 +74,16 @@ namespace TowerDefense
 
 
         }
+       // bool test = true;
         private void FireProjectile(Vector2 direction)
         {
             if (!_canFire) return;
+            //if (!test) return;
+            //test = false;
 
             _canFire = false;
            // Debug.WriteLine("Is this getting run?");
-            var prj = new Projectile(ResourceManager.GetTexture("Bullet_Cannon"), position, direction, _rotation, BulletSpeed, 0.2f);
+            var prj = new Projectile(ResourceManager.GetTexture("Bullet_Cannon"), position, direction, _rotation, BulletSpeed, 1f);
             CollisionManager.Collidables.Add(prj);
             ProjectileManager.Projectiles.Add(prj);
           //  Debug.WriteLine(prj.Position);

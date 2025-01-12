@@ -23,7 +23,7 @@ namespace TowerDefense
         //Textures
 
         //Bullet speed
-        public float BulletSpeed = 4f;
+        public float BulletSpeed = 1f;
 
         //Delay/Shooting speed
         public bool _canFire = true;

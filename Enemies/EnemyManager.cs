@@ -67,17 +67,17 @@ namespace TowerDefense
                     Enemy car = null;
                     if (_nbrOfNormalCarsInCurrentWave > 0)
                     {
-                        car = new NormalEnemy(_device, ResourceManager.GetTexture("car"), defaultPos);
+                        car = new NormalEnemy(_device, ResourceManager.GetTexture("car"), defaultPos, 1f);
                         _nbrOfNormalCarsInCurrentWave--;
                     }
                     else if (_nbrOfScoutCarsInCurrentWave > 0)
                     {
-                        car = new ScoutEnemy(_device, ResourceManager.GetTexture("scoutCar"), defaultPos);
+                        car = new ScoutEnemy(_device, ResourceManager.GetTexture("scoutCar"), defaultPos, 1f);
                         _nbrOfScoutCarsInCurrentWave--;
                     }
                     else if (_nbrOfHeavyCarsInCurrentWave > 0)
                     {
-                        car = new HeavyEnemy(_device, ResourceManager.GetTexture("heavyCar"), defaultPos);
+                        car = new HeavyEnemy(_device, ResourceManager.GetTexture("heavyCar"), defaultPos, 1f);
                         
                         _nbrOfHeavyCarsInCurrentWave--;
                     }

@@ -29,11 +29,17 @@ namespace TowerDefense
             get => position;
             set => position = value;
         }
+
+        //So basically bounding box can not rotate, so I might add this to make the colliders work better
+        //public BoundingSphere Hitboxs
+        //{
+        //    get => new BoundingSphere()
+        //}
         public Rectangle Hitbox
         {
             //get => new Rectangle((int)position.X, (int)position.Y, texture.Width, texture.Height);
             // get => new Rectangle((int)position.X - (int)Origin.X * (int)Size, (int)position.Y - (int)Origin.Y * (int)Size, rec.Width * (int)Size, rec.Height * (int)Size);
-            get => new Rectangle((int)_origin.X + (int)position.X, (int)_origin.Y + (int)position.Y, (int)(texture.Width * _scale), (int)(texture.Height * _scale));
+            get => new Rectangle((int)_origin.X + (int)position.X + (int)Math.Cos(_rotation), (int)_origin.Y + (int)position.Y + (int)Math.Sin(_rotation), (int)(texture.Width * _scale), (int)(texture.Height * _scale));
         }
 
 

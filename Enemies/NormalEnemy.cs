@@ -10,7 +10,7 @@ namespace TowerDefense
 {
     public class NormalEnemy : Enemy
     {
-        public NormalEnemy(GraphicsDevice device, Texture2D tex, Vector2 pos) : base(device, tex, pos, EnemyType.Normal)
+        public NormalEnemy(GraphicsDevice device, Texture2D tex, Vector2 pos, float scale) : base(device, tex, pos, EnemyType.Normal, scale)
         {
         }
     }
