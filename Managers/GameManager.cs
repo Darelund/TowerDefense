@@ -33,7 +33,7 @@ namespace TowerDefense
         public static GraphicsDevice Device;
         // private static SceneSwitcher _sceneSwitcher;
 
-        public static Tower _selectedObject = null;
+        public static SelectedTower _selectedObject = null;
         private static List<GameObjectSelector> gameObjectSelectors;
 
 
@@ -59,7 +59,7 @@ namespace TowerDefense
 
             LevelManager.AddLevel(Device, "map1.txt");
             EnemyManager.SetUp(Device);
-            TowerManager.AddTower(new Vector2(1000, 300));
+           // TowerManager.AddTower(new Vector2(1000, 300));
 
             GameObjectPlacer.SetUp(Device, Window, spriteBatch);
             GameObjectPlacer.DrawOnRenderTarget();
@@ -68,9 +68,9 @@ namespace TowerDefense
 
             gameObjectSelectors = new List<GameObjectSelector>()
             {
-                new GameObjectSelector(ResourceManager.GetTexture("Cannon"), new Tower(ResourceManager.GetTexture("Cannon"), Vector2.Zero, 0.2f), Vector2.Zero),
-                new GameObjectSelector(ResourceManager.GetTexture("MG"), new Tower(ResourceManager.GetTexture("MG"), Vector2.Zero, 0.2f), Vector2.Zero),
-                new GameObjectSelector(ResourceManager.GetTexture("Missile_Launcher"), new Tower(ResourceManager.GetTexture("Missile_Launcher"), Vector2.Zero, 0.2f), Vector2.Zero)
+                new GameObjectSelector(ResourceManager.GetTexture("Cannon"), new SelectedTower("Cannon", ResourceManager.GetTexture("Cannon"), Vector2.Zero, 0.2f), new Vector2(Window.ClientBounds.Width - 300, 0), 0.2f),
+                new GameObjectSelector(ResourceManager.GetTexture("MG"), new SelectedTower("MG", ResourceManager.GetTexture("MG"), Vector2.Zero, 0.2f), new Vector2(Window.ClientBounds.Width - 200, 0), 0.2f),
+                new GameObjectSelector(ResourceManager.GetTexture("Missile_Launcher"), new SelectedTower("Missile", ResourceManager.GetTexture("Missile_Launcher"), Vector2.Zero, 0.2f), new Vector2(Window.ClientBounds.Width - 100, 0), 0.2f)
             };
 
         }
@@ -104,7 +104,7 @@ namespace TowerDefense
                             if (selector.IsMouseOver())
                             {
                                 // Create a select object
-                                _selectedObject = selector.Prefab;
+                                _selectedObject = selector.SelectedObject();
                                 //_selectedObject = new Tower(
                                 //    selector.Prefab.GetTexture,
                                 //    Vector2.Zero,
@@ -184,7 +184,21 @@ namespace TowerDefense
 
 
                     spriteBatch.Begin();
-                    GameObjectPlacer.Draw(_selectedObject);
+                   
+                    if(_selectedObject != null)
+                    {
+                        _selectedObject.Draw(spriteBatch);
+                        GameObjectPlacer.Draw(_selectedObject);
+                    }
+                    else
+                    {
+                        GameObjectPlacer.Draw();
+                    }
+
+                    foreach (var selector in gameObjectSelectors)
+                    {
+                        selector.Draw(spriteBatch);
+                    }
                     spriteBatch.End();
 
                     break;

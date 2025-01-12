@@ -30,20 +30,20 @@ namespace TowerDefense
             _gameObjects = new List<GameObject>();
         }
 
-        public static void Update(GameTime gameTime, GameObject selectedGameObject)
+        public static void Update(GameTime gameTime, SelectedTower selectedGameObject)
         {
 
             selectedGameObject.Position = new Vector2((-selectedGameObject.GetTexture.Width * selectedGameObject._scale) / 2, (-selectedGameObject.GetTexture.Height * selectedGameObject._scale) / 2) + Mouse.GetState().Position.ToVector2();
-            selectedGameObject.Update(gameTime); //Need to Update the position so it follows the mouse
+           // selectedGameObject.Update(gameTime); //Need to Update the position so it follows the mouse
 
             if (InputManager.CurrentMouse.LeftButton == ButtonState.Released && CanPlace(selectedGameObject))
             {
                 PlaceDownObject(selectedGameObject);
             }
         }
-        private static void PlaceDownObject(GameObject selectedGameObject)
+        private static void PlaceDownObject(SelectedTower selectedGameObject)
         {
-            _gameObjects.Add(new Tower(selectedGameObject.GetTexture, selectedGameObject.Position, selectedGameObject._scale));
+            _gameObjects.Add(selectedGameObject.GetPrefab());
             OnObjectPlaced?.Invoke();
             Debug.WriteLine(_gameObjects.Count);
             DrawOnRenderTarget();
@@ -54,6 +54,11 @@ namespace TowerDefense
             _spriteBatch.Draw(_renderTarget, new Vector2(0, 0), Color.White);
 
             selectedGameObject.Draw(_spriteBatch);
+        }
+        public static void Draw()
+        {
+            _spriteBatch.Draw(_renderTarget, new Vector2(0, 0), Color.White);
+
         }
         public static void DrawOnRenderTarget()
         {

@@ -12,15 +12,16 @@ namespace TowerDefense
     public class GameObjectSelector
     {
         public Texture2D Icon { get; private set; }
-        public Tower Prefab { get; private set; }
+        public SelectedTower Prefab { get; private set; }
         public Rectangle Bounds { get; private set; }
+        private float _scale;
 
-
-        public GameObjectSelector(Texture2D icon, Tower prefab, Vector2 position)
+        public GameObjectSelector(Texture2D icon, SelectedTower prefab, Vector2 position, float scale)
         {
             Icon = icon;
             Prefab = prefab;
-            Bounds = new Rectangle((int)position.X, (int)position.Y, icon.Width, icon.Height);
+            _scale = scale;
+            Bounds = new Rectangle((int)position.X, (int)position.Y, (int)(icon.Width * _scale), (int)(icon.Height * _scale));
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -32,7 +33,7 @@ namespace TowerDefense
             var mouse = InputManager.CurrentMouse;
             return Bounds.Contains(mouse.Position);
         }
-        public Tower SelectedObject()
+        public SelectedTower SelectedObject()
         {
             GameObjectPlacer.OnObjectPlaced += Deselected;
             return Prefab;
