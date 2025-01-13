@@ -38,6 +38,7 @@ namespace TowerDefense
         public static SelectedTower _selectedObject = null;
         private static List<GameObjectSelector> gameObjectSelectors;
         private static Form1 winform;
+        private static ParticleSystem particleSystem;
 
 
         public static string Name { get; set; }
@@ -83,6 +84,14 @@ namespace TowerDefense
             winform.OnTowerUpgradeRequested3 += TowerManager.UpgradeMissileCost;
 
             //    winform.Show();
+
+            List<Texture2D> textures = new List<Texture2D>
+            {
+                ResourceManager.GetTexture("circle"),
+                ResourceManager.GetTexture("star"),
+                ResourceManager.GetTexture("diamond")
+            };
+            particleSystem = new ParticleSystem(textures, new Vector2(400, 240));
         }
 
 
@@ -152,6 +161,10 @@ namespace TowerDefense
 
                     FlashManager.Update(gameTime); //can't get it to work with the CatmullRomPath dll
                     CollisionManager.CheckCollision();
+
+
+                    particleSystem.EmitterLocation = new Vector2(Mouse.GetState().X, Mouse.GetState().Y);
+                    particleSystem.Update();
                     break;
                 case GameState.Pause:
                     break;
@@ -224,6 +237,7 @@ namespace TowerDefense
 
                     ProjectileManager.Draw(spriteBatch);
 
+                    particleSystem.Draw(spriteBatch);
                     break;
                 case GameState.Pause:
                     break;

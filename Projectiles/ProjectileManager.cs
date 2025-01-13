@@ -12,7 +12,8 @@ namespace TowerDefense
     public class ProjectileManager
     {
         public static List<Projectile> Projectiles = new List<Projectile>();
-       
+        public static List<ParticleSystem> particles = new List<ParticleSystem>();
+
 
         public static List<Projectile> GetAllProjectiles()
         {
@@ -34,6 +35,10 @@ namespace TowerDefense
             {
                 Projectiles[i].Update(gameTime);
             }
+            for (int i = 0; i < particles.Count; i++)
+            {
+                particles[i].Update();
+            }
             //foreach (Projectile t in Projectiles)
             //{
             //    t.Update(gameTime);
@@ -47,12 +52,18 @@ namespace TowerDefense
             {
                 Projectiles[i].Draw(spriteBatch);
             }
+            
             //foreach (Projectile t in Projectiles)
             //{
             //    t.Draw(spriteBatch);
             //  //  Debug.WriteLine(t.Position);
             //}
             spriteBatch.End();
-       }
+
+            for (int i = 0; i < particles.Count; i++)
+            {
+                particles[i].Draw(spriteBatch);
+            }
+        }
     }
 }
