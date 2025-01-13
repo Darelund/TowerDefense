@@ -15,7 +15,7 @@ namespace TowerDefense
       //  protected Rectangle sourceRectangle;
         private Rectangle _hitbox;
 
-        protected float _rotation;
+        public float _rotation;
         protected Vector2 _origin;
         public float _scale;
         protected SpriteEffects _spriteEffect;

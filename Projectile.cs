@@ -36,6 +36,13 @@ namespace TowerDefense
         {
             position += _direction * _speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
             // hitBox.X = (int)position.X;
+
+            if(position.X < -texture.Width * _scale || position.X > GameManager.Window.ClientBounds.Width + texture.Width * _scale || position.Y < -texture.Height * _scale || position.Y > GameManager.Window.ClientBounds.Height + texture.Height * _scale)
+            {
+                CollisionManager.Collidables.Remove(this);
+                ProjectileManager.Projectiles.Remove(this);
+
+            }
         }
 
         public override void Draw(SpriteBatch spriteBatch)
@@ -52,7 +59,7 @@ namespace TowerDefense
                 CollisionManager.Collidables.Remove(this);
                 ProjectileManager.Projectiles.Remove(this);
                 //Enemy take damage?
-                Debug.WriteLine("Hit enemy");
+               // Debug.WriteLine("Hit enemy");
             }
         }
     }

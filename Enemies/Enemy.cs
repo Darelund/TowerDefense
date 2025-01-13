@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using CatmullRom;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace TowerDefense
 {
@@ -23,8 +24,10 @@ namespace TowerDefense
 
         private float _currentCurvePos = 0;
         private float _speed;
-        private float _health;
+        public float _health;
         private int _reward;
+
+       
 
         private EnemyType _enemyType;
 
@@ -68,8 +71,9 @@ namespace TowerDefense
                 default:
                     break;
             }
-          //  DebugRectangle.Init(GameManager.Device, (int)(texture.Width * _scale), (int)(texture.Height * _scale));
+            //  DebugRectangle.Init(GameManager.Device, (int)(texture.Width * _scale), (int)(texture.Height * _scale));
 
+           
         }
         public override void Update(GameTime gameTime)
         {
@@ -80,6 +84,8 @@ namespace TowerDefense
                Vector2 currentPos = _car.EvaluateAt(_currentCurvePos);
                 position = currentPos;
             }
+
+          
         }
         public override void Draw(SpriteBatch spriteBatch)
         {
@@ -100,7 +106,7 @@ namespace TowerDefense
             if(gameObject is Projectile projectile)
             {
                 _health -= projectile.dmg;
-
+               // _healthText._text = _health.ToString();
                 if(_health <= 0)
                 {
                     CollisionManager.Collidables.Remove(this);

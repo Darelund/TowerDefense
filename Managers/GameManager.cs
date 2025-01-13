@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework.Input;
+using System.Diagnostics;
 
 namespace TowerDefense
 {
@@ -73,6 +74,7 @@ namespace TowerDefense
                 new GameObjectSelector(ResourceManager.GetTexture("Missile_Launcher"), new SelectedTower("Missile", ResourceManager.GetTexture("Missile_Launcher"), Vector2.Zero, 0.2f), new Vector2(Window.ClientBounds.Width - 100, 0), 0.2f)
             };
 
+            EnemyUIManager.SetUp();
         }
 
 
@@ -131,6 +133,10 @@ namespace TowerDefense
                     //Debug stuff
                     if (InputManager.RightClick())
                         LevelEditor.OpenLevelMapFile(LevelManager.CurrentLevel);
+
+
+                    if (InputManager.CurrentKeyboard.IsKeyDown(Keys.U))
+                        Debug.WriteLine(ProjectileManager.Projectiles.Count);
 
 
                       CollisionManager.CheckCollision();
@@ -197,6 +203,10 @@ namespace TowerDefense
                     spriteBatch.End();
                     LevelManager.Draw(spriteBatch);
                     EnemyManager.Draw(spriteBatch);
+
+                    spriteBatch.Begin();
+                    EnemyUIManager.Draw(spriteBatch, EnemyManager.enemies);
+                    spriteBatch.End();
 
                     ProjectileManager.Draw(spriteBatch);
 

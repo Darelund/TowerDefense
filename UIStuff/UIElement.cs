@@ -14,7 +14,7 @@ namespace TowerDefense
         protected Color CurrentColor;
         protected float Size;
         protected float LayerDepth;
-        protected float Rotation;
+        public float Rotation;
         protected Vector2 Origin;
 
         public UIElement(Vector2 position, Color color, float size, Vector2 origin, float layerDepth = 0f, float rotation = 0)

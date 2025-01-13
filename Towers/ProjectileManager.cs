@@ -30,20 +30,28 @@ namespace TowerDefense
 
         public static void Update(GameTime gameTime)
         {
-            foreach (Projectile t in Projectiles)
+            for (int i = 0; i < Projectiles.Count; i++)
             {
-                t.Update(gameTime);
+                Projectiles[i].Update(gameTime);
             }
+            //foreach (Projectile t in Projectiles)
+            //{
+            //    t.Update(gameTime);
+            //}
         }
 
        public static void Draw(SpriteBatch spriteBatch)
        {
             spriteBatch.Begin();
-            foreach (Projectile t in Projectiles)
+            for (int i = 0; i < Projectiles.Count; i++)
             {
-                t.Draw(spriteBatch);
-              //  Debug.WriteLine(t.Position);
+                Projectiles[i].Draw(spriteBatch);
             }
+            //foreach (Projectile t in Projectiles)
+            //{
+            //    t.Draw(spriteBatch);
+            //  //  Debug.WriteLine(t.Position);
+            //}
             spriteBatch.End();
        }
     }
