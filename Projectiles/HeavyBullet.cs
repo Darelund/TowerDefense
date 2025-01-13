@@ -10,7 +10,7 @@ namespace TowerDefense
 {
     public class HeavyBullet : Projectile
     {
-        private float _explosionRadius = 50f;
+        private float _explosionRadius = 200f;
         public HeavyBullet(Texture2D tex, Vector2 startPos, Vector2 direction, float rotation, float speed, float scale) : base(tex, startPos, direction, rotation, speed, scale)
         {
             dmg = 50;
@@ -27,9 +27,9 @@ namespace TowerDefense
         }
         private void AreaDamage()
         {
-            foreach (var collidable in CollisionManager.Collidables)
+            for(int i = 0; i < CollisionManager.Collidables.Count; i++)
             {
-                if(collidable is Enemy enemy)
+                if(CollisionManager.Collidables[i] is Enemy enemy)
                 {
                     float distance = Vector2.Distance(position, enemy.Position);
 
