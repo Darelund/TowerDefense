@@ -13,11 +13,15 @@ namespace TowerDefense
     {
         public float DetectionRadius { get; set; } = 200;
         private GameObject _targetEnemy;
+        public static int Level = 1;
         public CannonTower(Texture2D tex, Vector2 pos, float scale) : base(tex, pos, scale)
         {
             Price = 5;
             _origin = new Vector2(texture.Width / 2f, texture.Height / 4);
-            BulletSpeed = 1f;
+
+            TowerManager.ApplySettings(this);
+            //BulletSpeed = 1f;
+            //fireDelay = 0.5f;
         }
         public override void Update(GameTime gameTime)
         {
@@ -91,5 +95,34 @@ namespace TowerDefense
 
             //  Debug.WriteLine(ProjectileManager.Projectiles.Count);
         }
+        //public override void Upgrades()
+        //{
+        //    var nextLevel = Level + 1;
+        //    var price = nextLevel switch
+        //    {
+        //        2 => 10,
+        //        3 => 20,
+        //        _ => throw new Exception("I don't think this will happen")
+        //    };
+
+
+        //    if (nextLevel == 2 && EconomyManager.MoneyAmount > price)
+        //    {
+        //        EconomyManager.UpdateScore(-price);
+        //        Level = nextLevel;
+
+
+        //        BulletSpeed = 2f;
+        //        texture = ResourceManager.GetTexture("Cannon2");
+        //    }
+        //    if (nextLevel == 3 && EconomyManager.MoneyAmount > price)
+        //    {
+        //        EconomyManager.UpdateScore(-price);
+        //        Level = nextLevel;
+
+        //        BulletSpeed = 3f;
+        //        texture = ResourceManager.GetTexture("Cannon3");
+        //    }
+        //}
     }
 }

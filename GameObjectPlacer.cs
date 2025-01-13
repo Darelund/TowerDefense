@@ -16,7 +16,7 @@ namespace TowerDefense
         private static Texture2D _transparent;
         private static RenderTarget2D _renderTarget; //Map to render
       //  private GameObject _selectedGameObject;//Selected gameobject if you can afford
-        private static List<GameObject> _gameObjects;
+        public static List<GameObject> _gameObjects;
 
         private static SpriteBatch _spriteBatch;
         private static GraphicsDevice _graphicsDevice;

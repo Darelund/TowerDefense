@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework.Input;
 using System.Diagnostics;
+using WinForm;
 
 namespace TowerDefense
 {
@@ -36,6 +37,7 @@ namespace TowerDefense
 
         public static SelectedTower _selectedObject = null;
         private static List<GameObjectSelector> gameObjectSelectors;
+        private static Form1 winform;
 
 
         public static string Name { get; set; }
@@ -75,6 +77,12 @@ namespace TowerDefense
             };
 
             EnemyUIManager.SetUp();
+            winform = new Form1();
+            winform.OnTowerUpgradeRequested1 += TowerManager.UpgradeCannonCost;
+            winform.OnTowerUpgradeRequested2 += TowerManager.UpgradeMGCost;
+            winform.OnTowerUpgradeRequested3 += TowerManager.UpgradeMissileCost;
+
+            //    winform.Show();
         }
 
 
@@ -136,10 +144,13 @@ namespace TowerDefense
                         LevelEditor.OpenLevelMapFile(LevelManager.CurrentLevel);
 
 
-                    if (InputManager.CurrentKeyboard.IsKeyDown(Keys.U))
-                        Debug.WriteLine(ProjectileManager.Projectiles.Count);
+                    //if (InputManager.CurrentKeyboard.IsKeyDown(Keys.U))
+                    //    Debug.WriteLine(ProjectileManager.Projectiles.Count);
 
-                       FlashManager.Update(gameTime); //can't get it to work with the CatmullRomPath dll
+                    if (InputManager.CurrentKeyboard.IsKeyDown(Keys.U))
+                        winform.Show();
+
+                    FlashManager.Update(gameTime); //can't get it to work with the CatmullRomPath dll
                     CollisionManager.CheckCollision();
                     break;
                 case GameState.Pause:

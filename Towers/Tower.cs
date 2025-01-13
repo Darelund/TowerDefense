@@ -11,8 +11,8 @@ namespace TowerDefense
 {
     public class Tower : GameObject
     {
-       // private Texture2D _baseTexture;
-        
+        // private Texture2D _baseTexture;
+        //public int Level = 1;
 
         public int Price {  get; protected set; }
 
@@ -62,6 +62,10 @@ namespace TowerDefense
         }
         //Should make methods that children can override
         public virtual void Detection()
+        {
+
+        }
+        public virtual void Upgrades()
         {
 
         }

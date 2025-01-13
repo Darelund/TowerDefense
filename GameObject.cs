@@ -24,6 +24,12 @@ namespace TowerDefense
         public bool IsActive = true;
 
         public Texture2D GetTexture => texture;
+        public Texture2D SetTexture
+        {
+            set { texture = value; }
+        }
+
+
         public Vector2 Position
         {
             get => position;

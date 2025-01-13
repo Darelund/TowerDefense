@@ -12,12 +12,17 @@ namespace TowerDefense
     {
         public float DetectionRadius { get; set; } = 200;
         private GameObject _targetEnemy;
+        public static int Level = 1;
+
         public MissileTower(Texture2D tex, Vector2 pos, float scale) : base(tex, pos, scale)
         {
             Price = 25;
             _origin = new Vector2(texture.Width / 2f, texture.Height / 4);
-            BulletSpeed = 0.7f;
-            fireDelay = 2f;
+
+            TowerManager.ApplySettings(this);
+
+            //BulletSpeed = 0.7f;
+            //fireDelay = 2f;
         }
         public override void Update(GameTime gameTime)
         {
@@ -91,5 +96,19 @@ namespace TowerDefense
 
             //  Debug.WriteLine(ProjectileManager.Projectiles.Count);
         }
+        //public override void Upgrades()
+        //{
+        //    Level++;
+        //    if (Level == 2)
+        //    {
+        //        BulletSpeed = 2f;
+        //        texture = ResourceManager.GetTexture("Missile_Launcher2");
+        //    }
+        //    if (Level == 3)
+        //    {
+        //        BulletSpeed = 3f;
+        //        texture = ResourceManager.GetTexture("Missile_Launcher3");
+        //    }
+        //}
     }
 }
