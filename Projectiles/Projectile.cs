@@ -18,7 +18,7 @@ namespace TowerDefense
       //  private Vector2 startPos;
        // public Rectangle hitBox;
         private Vector2 _direction;
-        public float dmg { get; private set; } = 1;
+        public float dmg { get; set; } = 1;
 
         public Projectile(Texture2D tex, Vector2 startPos, Vector2 direction, float rotation, float speed, float scale): base(tex, startPos, scale) 
         {
@@ -29,7 +29,7 @@ namespace TowerDefense
             _rotation = rotation;
             _speed = speed;
             _direction = direction;
-            DebugRectangle.Init(GameManager.Device, (int)(texture.Width * _scale), (int)(texture.Height * _scale));
+          //  DebugRectangle.Init(GameManager.Device, (int)(texture.Width * _scale), (int)(texture.Height * _scale));
         }
 
         public override void Update(GameTime gameTime)
@@ -49,7 +49,7 @@ namespace TowerDefense
         {
             //spriteBatch.Draw(texture, position, Color.White);
             base.Draw(spriteBatch);
-            DebugRectangle.DrawRectangle(spriteBatch, new Rectangle((int)_origin.X + (int)position.X, (int)_origin.Y + (int)position.Y, (int)(texture.Width * _scale), (int)(texture.Height * _scale)), Color.Red);
+           // DebugRectangle.DrawRectangle(spriteBatch, new Rectangle((int)_origin.X + (int)position.X, (int)_origin.Y + (int)position.Y, (int)(texture.Width * _scale), (int)(texture.Height * _scale)), Color.Red);
         }
         public override void OnCollision(GameObject gameObject)
         {

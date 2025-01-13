@@ -97,29 +97,34 @@ namespace TowerDefense
                 spriteBatch.Draw(texture, _car.EvaluateAt(_currentCurvePos), null, Color, _rotation, _origin, _scale, _spriteEffect, _layerDepth);
               //  DebugRectangle.DrawRectangle(spriteBatch, new Rectangle((int)_origin.X + (int)position.X, (int)_origin.Y + (int)position.Y, (int)(texture.Width * _scale), (int)(texture.Height * _scale)), Color.Red);
             }
+            else
+            {
+                //Todo make player lose health
+            }
         }
         public override void OnCollision(GameObject gameObject)
         {
-            //if(gameObject.GetType() == typeof(Projectile))
-            //{
-            //    Debug.WriteLine("Bullet hit");
-
-            //}
+           
             if(gameObject is Projectile projectile)
             {
-                _health -= projectile.dmg;
-                float flashTime = 2f;
-                Color flashColor = Color.White;
-                var flash = new FlashEffect(ResourceManager.GetEffect("FlashEffect"), flashTime, this, flashColor);
-                FlashManager.AddFlashEffect(flash);
+                TakeDamage(projectile.dmg);
+            }
+        }
+        public void TakeDamage(float amount)
+        {
+            _health -= amount;
 
-                // _healthText._text = _health.ToString();
-                if (_health <= 0)
-                {
-                    CollisionManager.Collidables.Remove(this);
-                    EnemyManager.enemies.Remove(this);
-                    EconomyManager.UpdateScore(_reward);
-                }
+            float flashTime = 2f;
+            Color flashColor = Color.White;
+            var flash = new FlashEffect(ResourceManager.GetEffect("FlashEffect"), flashTime, this, flashColor);
+            FlashManager.AddFlashEffect(flash);
+
+            // _healthText._text = _health.ToString();
+            if (_health <= 0)
+            {
+                CollisionManager.Collidables.Remove(this);
+                EnemyManager.enemies.Remove(this);
+                EconomyManager.UpdateScore(_reward);
             }
         }
     }

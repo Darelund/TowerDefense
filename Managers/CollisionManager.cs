@@ -18,7 +18,7 @@ namespace TowerDefense
             {
                 for (int j = i + 1; j < Collidables.Count; j++)
                 {
-                    if (Collidables[i].Hitbox.Intersects(Collidables[j].Hitbox))
+                    if (Collidables[i].HitSphere.Intersects(Collidables[j].HitSphere))
                     {
                         Collidables[j].OnCollision(Collidables[i]);
 

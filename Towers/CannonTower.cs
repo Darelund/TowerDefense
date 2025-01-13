@@ -17,6 +17,7 @@ namespace TowerDefense
         {
             Price = 5;
             _origin = new Vector2(texture.Width / 2f, texture.Height / 4);
+            BulletSpeed = 1f;
         }
         public override void Update(GameTime gameTime)
         {
@@ -26,10 +27,10 @@ namespace TowerDefense
             //if (_laser != null)
             //    _laser.Update(gameTime);
             //}
-            if(!_canFire)
+            if (!_canFire)
             {
                 timeSinceLastFired += (float)gameTime.ElapsedGameTime.TotalSeconds;
-                if(timeSinceLastFired >= fireDelay)
+                if (timeSinceLastFired >= fireDelay)
                 {
                     _canFire = true;
                     timeSinceLastFired = 0;
@@ -50,16 +51,16 @@ namespace TowerDefense
         {
             foreach (var enemy in EnemyManager.enemies)
             {
-               // Debug.WriteLine("Is this getting run?");
-              //  Debug.WriteLine(Vector2.Distance(position, enemy.Position));
+                // Debug.WriteLine("Is this getting run?");
+                //  Debug.WriteLine(Vector2.Distance(position, enemy.Position));
                 if (Vector2.Distance(position, enemy.Position) <= DetectionRadius)
                 {
-                 //   Debug.WriteLine("Is this getting run?");
+                    //   Debug.WriteLine("Is this getting run?");
                     _targetEnemy = enemy;
                     RotateTowardsEnemy(enemy);
                     var direction = enemy.Position - position;
                     FireProjectile(direction);
-                   // throw new Exception("Came this far");
+                    // throw new Exception("Came this far");
                     break; // Stop checking once an enemy is targeted
                 }
             }
@@ -74,7 +75,7 @@ namespace TowerDefense
 
 
         }
-       // bool test = true;
+        // bool test = true;
         private void FireProjectile(Vector2 direction)
         {
             if (!_canFire) return;
@@ -82,13 +83,13 @@ namespace TowerDefense
             //test = false;
 
             _canFire = false;
-           // Debug.WriteLine("Is this getting run?");
-            var prj = new Projectile(ResourceManager.GetTexture("Bullet_Cannon"), position, direction, _rotation, BulletSpeed, 1f);
+            // Debug.WriteLine("Is this getting run?");
+            var prj = new NormalBullet(ResourceManager.GetTexture("Bullet_Cannon"), position, direction, _rotation, BulletSpeed, 0.8f);
             CollisionManager.Collidables.Add(prj);
             ProjectileManager.Projectiles.Add(prj);
-          //  Debug.WriteLine(prj.Position);
+            //  Debug.WriteLine(prj.Position);
 
-          //  Debug.WriteLine(ProjectileManager.Projectiles.Count);
+            //  Debug.WriteLine(ProjectileManager.Projectiles.Count);
         }
     }
 }
