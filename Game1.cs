@@ -15,7 +15,7 @@ namespace TowerDefense
         private string _soundEffects = "";
         private string _music = "";
         private string _spriteFonts = "GameText";
-        private string _effects = "";
+        private string _effects = "FlashEffect";
 
 
 

@@ -48,7 +48,7 @@ namespace TowerDefense
             texture = tex;
             position = pos;
             _hitbox = new Rectangle((int)position.X, (int)position.Y, texture.Width, texture.Height);
-            _origin = new Vector2(texture.Width * _scale / 2f, texture.Height * _scale / 2f);
+            _origin = new Vector2(texture.Width / 2f, texture.Height / 2f);
         }
         public GameObject(Texture2D tex, Vector2 pos, float scale) : this(tex, pos)
         {

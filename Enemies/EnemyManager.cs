@@ -103,7 +103,7 @@ namespace TowerDefense
         {
             foreach(Enemy enemy in enemies)
             {
-                if(!enemy.IsHit)
+              //  if(!enemy.IsHit)
                     enemy.Draw(spriteBatch);
             }
         }

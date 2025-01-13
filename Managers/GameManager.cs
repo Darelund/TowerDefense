@@ -129,6 +129,7 @@ namespace TowerDefense
 
                     GameObjectPlacer.UpdateObjectsOnTheRenderTarget(gameTime);
 
+
                     ProjectileManager.Update(gameTime);
                     //Debug stuff
                     if (InputManager.RightClick())
@@ -138,8 +139,8 @@ namespace TowerDefense
                     if (InputManager.CurrentKeyboard.IsKeyDown(Keys.U))
                         Debug.WriteLine(ProjectileManager.Projectiles.Count);
 
-
-                      CollisionManager.CheckCollision();
+                       FlashManager.Update(gameTime); //can't get it to work with the CatmullRomPath dll
+                    CollisionManager.CheckCollision();
                     break;
                 case GameState.Pause:
                     break;
@@ -202,9 +203,11 @@ namespace TowerDefense
                     }
                     spriteBatch.End();
                     LevelManager.Draw(spriteBatch);
-                    EnemyManager.Draw(spriteBatch);
+                   // EnemyManager.Draw(spriteBatch);
 
                     spriteBatch.Begin();
+                    EnemyManager.Draw(spriteBatch);
+                       FlashManager.Draw(spriteBatch); //can't get it to work with the CatmullRomPath dll
                     EnemyUIManager.Draw(spriteBatch, EnemyManager.enemies);
                     spriteBatch.End();
 
