@@ -22,6 +22,8 @@ namespace TowerDefense
             TowerManager.ApplySettings(this);
             //BulletSpeed = 1f;
             //fireDelay = 0.5f;
+
+           //   DebugSphere.Init(GameManager.Device, (int)BoundingSphereDiamater);
         }
         public override void Update(GameTime gameTime)
         {
@@ -44,6 +46,8 @@ namespace TowerDefense
         }
         public override void Draw(SpriteBatch spriteBatch)
         {
+          //  DebugSphere.DrawSphere(spriteBatch, HitSphere, Color.Green);
+
             // spriteBatch.Draw(_baseTexture, position, null, Color.White, _rotation, _origin, _scale, _spriteEffect, _layerDepth);
             spriteBatch.Draw(texture, position, null, Color, _rotation, _origin, _scale, _spriteEffect, _layerDepth);
 
@@ -51,7 +55,7 @@ namespace TowerDefense
             //    _laser.Draw(spriteBatch);
 
         }
-        public override void Detection()
+        public override void Detection() //Orkade inte så detta 
         {
             foreach (var enemy in EnemyManager.enemies)
             {

@@ -8,6 +8,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.ComponentModel.Design.ObjectSelectorEditor;
 
 namespace TowerDefense
 {
@@ -34,7 +35,7 @@ namespace TowerDefense
         public static void Update(GameTime gameTime, SelectedTower selectedGameObject)
         {
 
-            selectedGameObject.Position = new Vector2((-selectedGameObject.GetTexture.Width * selectedGameObject._scale) / 2, (-selectedGameObject.GetTexture.Height * selectedGameObject._scale) / 2) + Mouse.GetState().Position.ToVector2();
+            selectedGameObject.Position = Mouse.GetState().Position.ToVector2();
            // selectedGameObject.Update(gameTime); //Need to Update the position so it follows the mouse
            if(CanPlace(selectedGameObject))
             {
@@ -42,6 +43,7 @@ namespace TowerDefense
                 if (InputManager.CurrentMouse.LeftButton == ButtonState.Released)
                 {
                     PlaceDownObject(selectedGameObject);
+                    EconomyManager.UpdateScore(-selectedGameObject.GetPrefab().Price);
                 }
             }
            else
@@ -69,7 +71,7 @@ namespace TowerDefense
         {
             var tower = selectedGameObject.GetPrefab();
             //Texture2D tex = tower.GetTexture;
-            tower.Position = new Vector2((-selectedGameObject.GetTexture.Width * selectedGameObject._scale) / 2, (-selectedGameObject.GetTexture.Height * selectedGameObject._scale) / 2) + Mouse.GetState().Position.ToVector2();
+            tower.Position = Mouse.GetState().Position.ToVector2();
           //  float scale = tower._scale;
          // Debug.WriteLine(tower.GetType().Name);
             _gameObjects.Add(tower);

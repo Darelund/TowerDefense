@@ -78,7 +78,7 @@ namespace TowerDefense
             if(nextLevel == 2)
             {
                 var price = 10;
-                if(EconomyManager.MoneyAmount >  price)
+                if(EconomyManager.MoneyAmount >=  price)
                 {
                     EconomyManager.UpdateScore(-price);
                     CannonTower.Level++;
@@ -88,7 +88,7 @@ namespace TowerDefense
             if (nextLevel == 3)
             {
                 var price = 15;
-                if (EconomyManager.MoneyAmount > price)
+                if (EconomyManager.MoneyAmount >= price)
                 {
                     EconomyManager.UpdateScore(-price);
                     CannonTower.Level++;
@@ -102,7 +102,7 @@ namespace TowerDefense
             if (nextLevel == 2)
             {
                 var price = 15;
-                if (EconomyManager.MoneyAmount > price)
+                if (EconomyManager.MoneyAmount >= price)
                 {
                     EconomyManager.UpdateScore(-price);
                     MGTower.Level++;
@@ -112,7 +112,7 @@ namespace TowerDefense
             if (nextLevel == 3)
             {
                 var price = 25;
-                if (EconomyManager.MoneyAmount > price)
+                if (EconomyManager.MoneyAmount >= price)
                 {
                     EconomyManager.UpdateScore(-price);
                     MGTower.Level++;
@@ -126,7 +126,7 @@ namespace TowerDefense
             if (nextLevel == 2)
             {
                 var price = 30;
-                if (EconomyManager.MoneyAmount > price)
+                if (EconomyManager.MoneyAmount >= price)
                 {
                     EconomyManager.UpdateScore(-price);
                     MissileTower.Level++;
@@ -136,7 +136,7 @@ namespace TowerDefense
             if (nextLevel == 3)
             {
                 var price = 50;
-                if (EconomyManager.MoneyAmount > price)
+                if (EconomyManager.MoneyAmount >= price)
                 {
                     EconomyManager.UpdateScore(-price);
                     MissileTower.Level++;

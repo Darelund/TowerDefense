@@ -92,8 +92,8 @@ namespace TowerDefense
         }
         public static void Update(GameTime gameTime)
         {
-            //Should add logic to know if its time to spawn
             LoadWave(gameTime);
+
             foreach (Enemy enemy in enemies)
             {
                 enemy.Update(gameTime);

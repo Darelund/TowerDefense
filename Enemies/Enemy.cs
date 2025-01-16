@@ -37,10 +37,10 @@ namespace TowerDefense
 
         private GraphicsDevice _device;
 
-        public Enemy(GraphicsDevice device, Texture2D tex, Vector2 pos, EnemyType enemyType, float scale) : base(tex, pos)
+        public Enemy(GraphicsDevice device, Texture2D tex, Vector2 pos, EnemyType enemyType, float scale) : base(tex, pos, scale)
         {
             _device = device;
-            _scale = scale;
+          //  _scale = scale;
             float tensionRoad = 0.5f;
 
             _car = new CatmullRomPath(_device, tensionRoad);
@@ -72,8 +72,9 @@ namespace TowerDefense
                     break;
             }
             //  DebugRectangle.Init(GameManager.Device, (int)(texture.Width * _scale), (int)(texture.Height * _scale));
+            BoundingSphereDiamater /= 2;
+            DebugSphere.Init(GameManager.Device, (int)BoundingSphereDiamater);
 
-           
         }
         public override void Update(GameTime gameTime)
         {
@@ -94,8 +95,11 @@ namespace TowerDefense
             {
                // if (!IsHit)
               //  _car.DrawMovingObject(_currentCurvePos, spriteBatch, texture);
-                spriteBatch.Draw(texture, _car.EvaluateAt(_currentCurvePos), null, Color, _rotation, _origin, _scale, _spriteEffect, _layerDepth);
+                spriteBatch.Draw(texture, position, null, Color, _rotation, _origin, _scale, _spriteEffect, _layerDepth);
               //  DebugRectangle.DrawRectangle(spriteBatch, new Rectangle((int)_origin.X + (int)position.X, (int)_origin.Y + (int)position.Y, (int)(texture.Width * _scale), (int)(texture.Height * _scale)), Color.Red);
+            
+                if(GameManager.UseDebug)
+                DebugSphere.DrawSphere(spriteBatch, HitSphere, Color.Green);
             }
             else
             {
@@ -107,6 +111,8 @@ namespace TowerDefense
            
             if(gameObject is Projectile projectile)
             {
+                CollisionManager.Collidables.Remove(projectile);
+                ProjectileManager.Projectiles.Remove(projectile);
                 TakeDamage(projectile.dmg);
             }
         }

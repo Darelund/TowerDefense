@@ -30,6 +30,7 @@ namespace TowerDefense
             _speed = speed;
             _direction = direction;
           //  DebugRectangle.Init(GameManager.Device, (int)(texture.Width * _scale), (int)(texture.Height * _scale));
+          DebugSphere.Init(GameManager.Device, (int)BoundingSphereDiamater);
         }
 
         public override void Update(GameTime gameTime)
@@ -49,15 +50,18 @@ namespace TowerDefense
         {
             //spriteBatch.Draw(texture, position, Color.White);
             base.Draw(spriteBatch);
-           // DebugRectangle.DrawRectangle(spriteBatch, new Rectangle((int)_origin.X + (int)position.X, (int)_origin.Y + (int)position.Y, (int)(texture.Width * _scale), (int)(texture.Height * _scale)), Color.Red);
+            // DebugRectangle.DrawRectangle(spriteBatch, new Rectangle((int)_origin.X + (int)position.X, (int)_origin.Y + (int)position.Y, (int)(texture.Width * _scale), (int)(texture.Height * _scale)), Color.Red);
+
+            if (GameManager.UseDebug)
+                DebugSphere.DrawSphere(spriteBatch, HitSphere, Color.Green);
         }
         public override void OnCollision(GameObject gameObject)
         {
             if(gameObject is Enemy enemy)
             {
               //  IsActive = false;
-                CollisionManager.Collidables.Remove(this);
-                ProjectileManager.Projectiles.Remove(this);
+                //CollisionManager.Collidables.Remove(this);
+                //ProjectileManager.Projectiles.Remove(this);
                 //Enemy take damage?
                // Debug.WriteLine("Hit enemy");
             }

@@ -39,6 +39,8 @@ namespace TowerDefense
         private static List<GameObjectSelector> gameObjectSelectors;
         private static Form1 winform;
         private static ParticleSystem particleSystem;
+        public static bool UseDebug = false;
+        public static bool isUpgrading = false;
 
 
         public static string Name { get; set; }
@@ -129,7 +131,7 @@ namespace TowerDefense
                                 if(EconomyManager.MoneyAmount >= selector.Prefab.GetPrefab().Price)
                                 {
                                     _selectedObject = selector.SelectedObject();
-                                    EconomyManager.UpdateScore(-selector.Prefab.GetPrefab().Price);
+                                   // EconomyManager.UpdateScore(-selector.Prefab.GetPrefab().Price);
                                 }
                                else
                                 {
@@ -156,11 +158,24 @@ namespace TowerDefense
                     //if (InputManager.CurrentKeyboard.IsKeyDown(Keys.U))
                     //    Debug.WriteLine(ProjectileManager.Projectiles.Count);
 
-                    if (InputManager.CurrentKeyboard.IsKeyDown(Keys.U))
-                        winform.Show();
-
+                    if (InputManager.CurrentKeyboard.IsKeyDown(Keys.U) && InputManager.PreviousKeyboard.IsKeyUp(Keys.U))
+                    {
+                        isUpgrading = !isUpgrading;
+                        if(isUpgrading)
+                        {
+                            winform.Show();
+                        }
+                        else
+                        {
+                            winform.Hide();
+                        }
+                    }
+                        
                     FlashManager.Update(gameTime); //can't get it to work with the CatmullRomPath dll
                     CollisionManager.CheckCollision();
+
+                    if (InputManager.CurrentKeyboard.IsKeyDown(Keys.D) && InputManager.PreviousKeyboard.IsKeyUp(Keys.D))
+                        UseDebug = !UseDebug;
 
 
                     particleSystem.EmitterLocation = new Vector2(Mouse.GetState().X, Mouse.GetState().Y);

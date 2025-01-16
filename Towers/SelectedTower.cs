@@ -19,6 +19,10 @@ namespace TowerDefense
         public SelectedTower(string type, Texture2D tex, Vector2 pos, float scale) : base(tex, pos, scale)
         {
             _type = type;
+            _origin = GetPrefab()._origin;
+
+            DebugRectangle.Init(GameManager.Device, (int)(texture.Width * _scale), (int)(texture.Height * _scale));
+
         }
         public override void Update(GameTime gameTime)
         {
@@ -26,6 +30,9 @@ namespace TowerDefense
         public override void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(texture, position, null, Color, _rotation, _origin, _scale, _spriteEffect, _layerDepth);
+
+            if(GameManager.UseDebug)
+            DebugRectangle.DrawRectangle(spriteBatch, new Rectangle((int)position.X, (int)position.Y, (int)(texture.Width * _scale), (int)(texture.Height * _scale)), Color.Red);
         }
         public Tower GetPrefab()
         {
