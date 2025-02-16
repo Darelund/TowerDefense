@@ -24,16 +24,12 @@ namespace TowerDefense
             Restart,
             Exit
         }
-      //  public static List<GameObject> GameObjects { get; set; } = new List<GameObject>();
-      //  public static List<GameObject> GetGameObjects => GameObjects;
-      //  private static List<FlashEffect> _flashEffects = new List<FlashEffect>();
 
         public static GameState CurrentGameState { get; private set; } = GameState.Playing;
 
         public static GameWindow Window;
         public static ContentManager Content;
         public static GraphicsDevice Device;
-        // private static SceneSwitcher _sceneSwitcher;
 
         public static SelectedTower _selectedObject = null;
         private static List<GameObjectSelector> gameObjectSelectors;
@@ -53,24 +49,17 @@ namespace TowerDefense
             Window = window;
             Content = content;
             Device = device;
-           // _sceneSwitcher = new SceneSwitcher(Window, Device);
         }
         public static void ContentLoad(SpriteBatch spriteBatch)
         {
               UIManager.LoadContent();
-            // AudioManager.LoadContent();
-            // HighScore.LoadScores();
-            //LevelManager.CreateLevels();
-            //LevelManager.SpecificLevel(0, false);
 
             LevelManager.AddLevel(Device, "map1.txt");
             EnemyManager.SetUp(Device);
-           // TowerManager.AddTower(new Vector2(1000, 300));
 
             GameObjectPlacer.SetUp(Device, Window, spriteBatch);
             GameObjectPlacer.DrawOnRenderTarget();
 
-          //  _selectedObject = new Tower(ResourceManager.GetTexture("Cannon"), new Vector2(-ResourceManager.GetTexture("Cannon").Width / 2, -ResourceManager.GetTexture("Cannon").Height / 2) + Mouse.GetState().Position.ToVector2(), 0.2f);
 
             gameObjectSelectors = new List<GameObjectSelector>()
             {
@@ -155,8 +144,6 @@ namespace TowerDefense
                         LevelEditor.OpenLevelMapFile(LevelManager.CurrentLevel);
 
 
-                    //if (InputManager.CurrentKeyboard.IsKeyDown(Keys.U))
-                    //    Debug.WriteLine(ProjectileManager.Projectiles.Count);
 
                     if (InputManager.CurrentKeyboard.IsKeyDown(Keys.U) && InputManager.PreviousKeyboard.IsKeyUp(Keys.U))
                     {
@@ -171,7 +158,7 @@ namespace TowerDefense
                         }
                     }
                         
-                    FlashManager.Update(gameTime); //can't get it to work with the CatmullRomPath dll
+                    FlashManager.Update(gameTime); 
                     CollisionManager.CheckCollision();
 
                     if (InputManager.CurrentKeyboard.IsKeyDown(Keys.D) && InputManager.PreviousKeyboard.IsKeyUp(Keys.D))
@@ -185,41 +172,22 @@ namespace TowerDefense
                     break;
                 case GameState.GameOver:
                     InputManager.Update();
-                   // UIManager.Update(gameTime);
                     break;
                 case GameState.Victory:
-                   // LevelManager.NextLevel(true);
-                    //LevelManager.SpecificLevel(5, true);
                     break;
                 case GameState.Restart:
-                 //   LevelManager.Restart();
                     break;
                 case GameState.Exit:
                     break;
             }
-           // _sceneSwitcher.Update(gameTime);
         }
         public static void Draw(SpriteBatch spriteBatch)
         {
-           // spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, SamplerState.PointWrap);
             switch (CurrentGameState)
             {
                 case GameState.MainMenu:
-                 //   UIManager.Draw(spriteBatch);
-                  
                     break;
                 case GameState.Playing:
-
-
-
-                    // LevelEditor.Draw(spriteBatch);
-
-
-
-                  
-
-
-
                     spriteBatch.Begin();
 
                     if (_selectedObject != null)
@@ -242,7 +210,6 @@ namespace TowerDefense
                     }
                     spriteBatch.End();
                     LevelManager.Draw(spriteBatch);
-                   // EnemyManager.Draw(spriteBatch);
 
                     spriteBatch.Begin();
                     EnemyManager.Draw(spriteBatch);
@@ -257,33 +224,15 @@ namespace TowerDefense
                 case GameState.Pause:
                     break;
                 case GameState.GameOver:
-                  //  UIManager.Draw(spriteBatch);
-                 //   HighScore.DisplayScores(spriteBatch);
                     break;
                 case GameState.Victory:
-                 //   UIManager.Draw(spriteBatch);
                     break;
                 case GameState.Restart:
                     break;
                 case GameState.Exit:
                     break;
             }
-           // _sceneSwitcher.Draw(spriteBatch);
-          //  spriteBatch.End();
         }
-        //public static void AddGameObject(GameObject gameObject)
-        //{
-        //    _gameObjects.Add(gameObject);
-        //}
-        //public static void RemoveGameObject(GameObject gameObject)
-        //{
-        //    _gameObjects.Remove(gameObject);
-        //}
-
-        //public static void AddFlashEffect(FlashEffect flashEffect)
-        //{
-        //    _flashEffects.Add(flashEffect);
-        //}
         public static void ChangeGameState(object passedState)
         {
             if (passedState is GameState newState)
